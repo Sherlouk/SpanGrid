@@ -29,7 +29,7 @@ public struct SpanGridCellMetadata {
     
 }
 
-extension View {
+public extension View {
     func frame(cellMetadata: SpanGridCellMetadata) -> some View {
          frame(width: cellMetadata.size.width)
         .frame(minHeight: cellMetadata.size.height)
