@@ -43,7 +43,7 @@ class SpanGridExampleImageGenerator: XCTestCase {
                 layout: .fixed(width: 850, height: 200),
                 traits: .init(userInterfaceStyle: .light)
             ),
-            named: "light", record: true
+            named: "light"
         )
         
         assertSnapshot(
@@ -52,7 +52,7 @@ class SpanGridExampleImageGenerator: XCTestCase {
                 layout: .fixed(width: 850, height: 200),
                 traits: .init(userInterfaceStyle: .dark)
             ),
-            named: "dark", record: true
+            named: "dark"
         )
     }
     
