@@ -25,7 +25,6 @@ internal struct SpanGridDynamicColumnSizeStrategy {
         width: CGFloat,
         sizeCategory: ContentSizeCategory
     ) -> SpanGridColumnSizeResult {
-        #warning("Design: Need to understand these breakpoints more.")
         let wideSystem = width > 800
         
         let minimumGutter = wideSystem ? minimumGutterRegular : minimumGutterCompact
