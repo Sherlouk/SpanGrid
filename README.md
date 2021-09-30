@@ -2,6 +2,13 @@
 
 > SpanGrid is an enriched SwiftUI [`LazyVGrid`](https://developer.apple.com/documentation/swiftui/lazyvgrid) that supports a number of extra features.
 
+
+<picture>
+  <source srcset="https://raw.githubusercontent.com/Sherlouk/SpanGrid/main/Tests/__Snapshots__/SpanGridExampleImageGenerator/testREADME.dark.png" media="(prefers-color-scheme: dark)">
+  <img src="https://raw.githubusercontent.com/Sherlouk/SpanGrid/main/Tests/__Snapshots__/SpanGridExampleImageGenerator/testREADME.light.png" alt="A basic example output of a SpanGrid with four cells reading the sentence: Welcome to SpanGrid! The latest in SwiftUI grid goodness.">
+</picture>
+
+
 ## Features
 
 ### Column Span
