@@ -1,8 +1,7 @@
 //
-//  SpanGridCellMetadata.swift
-//  SpanGrid
+// SpanGridCellMetadata.swift
 //
-//  Created by James Sherlock on 28/09/2021.
+// Copyright 2021 • James Sherlock
 //
 
 import SwiftUI
@@ -30,6 +29,7 @@ public struct SpanGridCellMetadata {
 }
 
 public extension View {
+    /// Sets the width and height to the size provided by the metadata model.
     func frame(cellMetadata: SpanGridCellMetadata) -> some View {
         frame(width: cellMetadata.size.width)
             .frame(minHeight: cellMetadata.size.height)

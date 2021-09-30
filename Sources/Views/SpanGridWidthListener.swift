@@ -1,8 +1,7 @@
 //
-//  SpanGridWidthListener.swift
-//  SpanGrid
+// SpanGridWidthListener.swift
 //
-//  Created by James Sherlock on 28/09/2021.
+// Copyright 2021 • James Sherlock
 //
 
 import SwiftUI

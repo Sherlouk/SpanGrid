@@ -1,8 +1,7 @@
 //
-//  SpanGridDetermineRowHeight.swift
-//  SpanGrid
+// SpanGridDetermineRowHeight.swift
 //
-//  Created by James Sherlock on 29/09/2021.
+// Copyright 2021 • James Sherlock
 //
 
 import SwiftUI

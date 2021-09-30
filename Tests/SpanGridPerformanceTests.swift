@@ -1,8 +1,7 @@
 //
-//  SpanGridTests.swift
-//  SpanGridTests
+// SpanGridPerformanceTests.swift
 //
-//  Created by James Sherlock on 29/09/2021.
+// Copyright 2021 • James Sherlock
 //
 
 @testable import SpanGrid

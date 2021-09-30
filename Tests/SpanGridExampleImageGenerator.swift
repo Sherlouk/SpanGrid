@@ -1,8 +1,7 @@
 //
-//  SpanGridExampleImageGenerator.swift
-//  SpanGridTests
+// SpanGridExampleImageGenerator.swift
 //
-//  Created by James Sherlock on 30/09/2021.
+// Copyright 2021 • James Sherlock
 //
 
 import SnapshotTesting

@@ -1,8 +1,7 @@
 //
-//  SpanGridColumnSizeStrategy.swift
-//  SpanGrid
+// SpanGridColumnSizeStrategy.swift
 //
-//  Created by James Sherlock on 26/09/2021.
+// Copyright 2021 • James Sherlock
 //
 
 import SwiftUI

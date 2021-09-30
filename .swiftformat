@@ -9,3 +9,5 @@
 --enable sortedSwitchCases
 --enable wrapEnumCases
 --enable wrapSwitchCases
+
+--header "\n{file}\n\nCopyright {year} • James Sherlock\n"

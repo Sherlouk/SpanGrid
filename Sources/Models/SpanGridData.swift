@@ -1,8 +1,7 @@
 //
-//  SpanGridData.swift
-//  SpanGrid
+// SpanGridData.swift
 //
-//  Created by James Sherlock on 27/09/2021.
+// Copyright 2021 • James Sherlock
 //
 
 import SwiftUI
