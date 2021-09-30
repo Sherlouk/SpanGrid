@@ -5,14 +5,13 @@
 //  Created by James Sherlock on 28/09/2021.
 //
 
-import XCTest
-import UIKit
-import SwiftUI
 import SnapshotTesting
-@testable import SpanGrid
+import SpanGrid
+import SwiftUI
+import UIKit
+import XCTest
 
 class SpanGridRowSizeStrategyTests: XCTestCase {
-    
     func testRowSizeStrategy() {
         runTest(withStrategy: .square, name: "square")
         runTest(withStrategy: .fixed(height: 80), name: "fixed")
@@ -30,8 +29,8 @@ class SpanGridRowSizeStrategyTests: XCTestCase {
         testName: String = #function,
         line: UInt = #line
     ) {
-        let data = (0..<30).map { offset -> ViewModel in
-            return ViewModel(id: offset, layoutSize: .cell)
+        let data = (0 ..< 30).map { offset -> ViewModel in
+            ViewModel(id: offset, layoutSize: .cell)
         }
         
         let row = data.count / columnCount
@@ -68,7 +67,7 @@ class SpanGridRowSizeStrategyTests: XCTestCase {
         78, 64, 49, 49, 61, 49, 59, 33, 51, 58,
         50, 40, 35, 62, 72, 69, 39, 45, 71, 38,
         35, 76, 52, 35, 51, 54, 42, 33, 56, 72,
-        61, 39, 73, 35, 74, 76, 55, 60, 43, 72
+        61, 39, 73, 35, 74, 76, 55, 60, 43, 72,
     ]
     
     func createTile(viewModel: ViewModel, metadata: SpanGridCellMetadata) -> some View {
@@ -95,5 +94,4 @@ class SpanGridRowSizeStrategyTests: XCTestCase {
         let id: Int
         let layoutSize: SpanGridLayoutSize
     }
-
 }

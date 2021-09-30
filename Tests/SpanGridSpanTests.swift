@@ -5,14 +5,15 @@
 //  Created by James Sherlock on 28/09/2021.
 //
 
-import XCTest
-import UIKit
-import SwiftUI
 import SnapshotTesting
 @testable import SpanGrid
+import SwiftUI
+import UIKit
+import XCTest
+
+// MARK: - SpanGridSpanTests
 
 class SpanGridSpanTests: XCTestCase {
-    
     func testColumnSpan() {
         runTest(
             withSizeMapping: [
@@ -40,7 +41,7 @@ class SpanGridSpanTests: XCTestCase {
             withSizeMapping: [
                 [ 0, 6 ]: .row,
                 [ 10, 13, 16 ]: .span(2),
-                [ 19 ]: .span(10)
+                [ 19 ]: .span(10),
             ],
             columnCount: 4,
             name: "complex-4"
@@ -50,7 +51,7 @@ class SpanGridSpanTests: XCTestCase {
             withSizeMapping: [
                 [ 0, 6 ]: .row,
                 [ 10, 13, 16 ]: .span(2),
-                [ 19 ]: .span(10)
+                [ 19 ]: .span(10),
             ],
             columnCount: 3,
             name: "complex-3"
@@ -65,7 +66,7 @@ class SpanGridSpanTests: XCTestCase {
         testName: String = #function,
         line: UInt = #line
     ) {
-        let data = (0..<30).map { offset -> ViewModel in
+        let data = (0 ..< 30).map { offset -> ViewModel in
             if let value = mapping.first(where: { $0.key.contains(offset) })?.value {
                 return ViewModel(id: offset, layoutSize: value)
             }
@@ -85,7 +86,6 @@ class SpanGridSpanTests: XCTestCase {
                 
                 Text("\(viewModel.layoutSize.spanSize(columnCount: columnCount))")
             }
-            
         }
         
         assertSnapshot(
@@ -102,19 +102,16 @@ class SpanGridSpanTests: XCTestCase {
         let id: Int
         let layoutSize: SpanGridLayoutSize
     }
-    
 }
 
-extension SpanGridLayoutSize {
-    
-    fileprivate func getColor(columnCount: Int) -> Color {
+private extension SpanGridLayoutSize {
+    func getColor(columnCount: Int) -> Color {
         let colors: [Color] = [
             .red, .green, .blue,
             .yellow, .black, .orange,
-            .gray, .pink
+            .gray, .pink,
         ]
         
         return colors[spanSize(columnCount: columnCount) - 1]
     }
-    
 }

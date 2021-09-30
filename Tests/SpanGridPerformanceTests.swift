@@ -5,15 +5,14 @@
 //  Created by James Sherlock on 29/09/2021.
 //
 
-import XCTest
 @testable import SpanGrid
 import SwiftUI
+import XCTest
 
 class SpanGridPerformanceTests: XCTestCase {
-
     func testInitialisation() {
-        let data = (0..<1000).map { offset -> ViewModel in
-            return ViewModel(id: offset, layoutSize: .span(.random(in: 1...5)))
+        let data = (0 ..< 1000).map { offset -> ViewModel in
+            ViewModel(id: offset, layoutSize: .span(.random(in: 1 ... 5)))
         }
         
         let options = XCTMeasureOptions()
@@ -21,7 +20,7 @@ class SpanGridPerformanceTests: XCTestCase {
         
         measure(
             metrics: [
-                XCTClockMetric()
+                XCTClockMetric(),
             ],
             options: options
         ) {
@@ -39,8 +38,8 @@ class SpanGridPerformanceTests: XCTestCase {
     }
     
     func testSpanIndexCache() {
-        let data = (0..<1000).map { offset -> ViewModel in
-            return ViewModel(id: offset, layoutSize: .span(.random(in: 1...5)))
+        let data = (0 ..< 1000).map { offset -> ViewModel in
+            ViewModel(id: offset, layoutSize: .span(.random(in: 1 ... 5)))
         }
         
         let grid = SpanGrid(
@@ -56,7 +55,7 @@ class SpanGridPerformanceTests: XCTestCase {
         
         measure(
             metrics: [
-                XCTClockMetric()
+                XCTClockMetric(),
             ],
             options: options
         ) {
@@ -65,7 +64,6 @@ class SpanGridPerformanceTests: XCTestCase {
                 _ = grid.spanIndexCalculator.getSpanIndex(forItemWithOffset: i, columnCount: 3)
             }
         }
-        
     }
     
     func testDynamicColumnStrategy() {
@@ -76,14 +74,14 @@ class SpanGridPerformanceTests: XCTestCase {
         
         measure(
             metrics: [
-                XCTClockMetric()
+                XCTClockMetric(),
             ],
             options: options
         ) {
             // ~0.009s
             for _ in 0 ..< 1000 {
                 _ = strategy.calculate(
-                    width: .random(in: 320...2500),
+                    width: .random(in: 320 ... 2500),
                     sizeCategory: Bool.random() ? .large : .accessibilityExtraExtraExtraLarge
                 )
             }
@@ -91,8 +89,8 @@ class SpanGridPerformanceTests: XCTestCase {
     }
     
     func testCreateSpanView() {
-        let data = (0..<1000).map { offset -> ViewModel in
-            return ViewModel(id: offset, layoutSize: .span(.random(in: 1...5)))
+        let data = (0 ..< 1000).map { offset -> ViewModel in
+            ViewModel(id: offset, layoutSize: .span(.random(in: 1 ... 5)))
         }
         
         let grid = SpanGrid(
@@ -108,7 +106,7 @@ class SpanGridPerformanceTests: XCTestCase {
         
         measure(
             metrics: [
-                XCTClockMetric()
+                XCTClockMetric(),
             ],
             options: options
         ) {
@@ -130,5 +128,4 @@ class SpanGridPerformanceTests: XCTestCase {
         let id: Int
         let layoutSize: SpanGridLayoutSize
     }
-
 }

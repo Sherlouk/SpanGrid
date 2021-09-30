@@ -7,8 +7,9 @@
 
 import SwiftUI
 
+// MARK: - SpanGridRowPreferenceKey
+
 internal struct SpanGridRowPreferenceKey: PreferenceKey {
-    
     static var defaultValue: [Int: CGFloat] = [:]
     
     static func reduce(value: inout [Int: CGFloat], nextValue: () -> [Int: CGFloat]) {
@@ -16,8 +17,9 @@ internal struct SpanGridRowPreferenceKey: PreferenceKey {
             value[row] = max(value[row] ?? 0, newValue)
         }
     }
-    
 }
+
+// MARK: - SpanGridDetermineRowHeight
 
 internal struct SpanGridDetermineRowHeight: View {
     typealias Key = SpanGridRowPreferenceKey

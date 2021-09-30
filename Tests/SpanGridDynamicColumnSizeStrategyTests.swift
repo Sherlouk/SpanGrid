@@ -5,14 +5,13 @@
 //  Created by James Sherlock on 28/09/2021.
 //
 
-import XCTest
-import UIKit
-import SwiftUI
 import SnapshotTesting
 import SpanGrid
+import SwiftUI
+import UIKit
+import XCTest
 
 class SpanGridDynamicColumnSizeStrategyTests: XCTestCase {
-    
     func testDynamicStrategy_snapshots() {
         // https://www.ios-resolution.com/
         
@@ -55,19 +54,18 @@ class SpanGridDynamicColumnSizeStrategyTests: XCTestCase {
         testName: String = #function,
         line: UInt = #line
     ) {
-        let data = (0..<13).map { offset -> ViewModel in
-            return ViewModel(id: offset, layoutSize: offset == 0 ? .row : .cell)
+        let data = (0 ..< 13).map { offset -> ViewModel in
+            ViewModel(id: offset, layoutSize: offset == 0 ? .row : .cell)
         }
         
         let grid = SpanGrid(
             dataSource: data,
             columnSizeStrategy: .dynamic
-        ) { viewModel, metadata in
+        ) { _, metadata in
             
             Rectangle()
                 .frame(width: metadata.size.width, height: 25)
                 .foregroundColor(.red)
-            
         }
         
         assertSnapshot(
@@ -87,5 +85,4 @@ class SpanGridDynamicColumnSizeStrategyTests: XCTestCase {
         let id: Int
         let layoutSize: SpanGridLayoutSize
     }
-    
 }

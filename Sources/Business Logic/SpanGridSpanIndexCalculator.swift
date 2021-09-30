@@ -8,7 +8,6 @@
 import SwiftUI
 
 internal class SpanGridSpanIndexCalculator<Content: View, Data: Identifiable & SpanGridSizeInfoProvider> {
-    
     var grid: SpanGrid<Content, Data>?
     
     var lastColumnCount: Int = -1
@@ -74,5 +73,4 @@ internal class SpanGridSpanIndexCalculator<Content: View, Data: Identifiable & S
             accumulateSpanIndex(partialResult: partialResult, gridData: gridData, columnCount: columnCount)
         }
     }
-    
 }

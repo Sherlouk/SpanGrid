@@ -8,7 +8,6 @@
 import SwiftUI
 
 internal struct SpanGridSpanView<Content: View>: View {
-    
     struct Column: Identifiable {
         let id: Int
         let isSpan: Bool
@@ -39,10 +38,9 @@ internal struct SpanGridSpanView<Content: View>: View {
         if spanSize == 1 {
             content(columnWidth)
         } else {
-            
             let columnSpacing = columnSizeResult.interitemSpacing
             
-            let columns = Array(1...spanSize + prefixSpace).map {
+            let columns = Array(1 ... spanSize + prefixSpace).map {
                 Column(id: $0, isSpan: $0 == prefixSpace + 1)
             }
             
@@ -54,6 +52,5 @@ internal struct SpanGridSpanView<Content: View>: View {
                 }
             }
         }
-        
     }
 }

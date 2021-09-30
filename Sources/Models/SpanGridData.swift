@@ -9,7 +9,6 @@ import SwiftUI
 
 /// Wraps the client-provided data with extra information allowing for easier calculations of row and column positioning.
 internal struct SpanGridData<Data: Identifiable>: Identifiable {
-    
     /// The index of this cell within the grid where `0` is the first item, `1` is the second item and so on.
     let cellIndex: Int
     
@@ -20,5 +19,4 @@ internal struct SpanGridData<Data: Identifiable>: Identifiable {
     var id: Data.ID {
         data.id
     }
-    
 }

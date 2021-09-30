@@ -8,7 +8,6 @@
 import SwiftUI
 
 internal struct SpanGridWidthListener: UIViewControllerRepresentable {
-    
     internal class ViewController: UIViewController {
         var lastKnownSize: CGSize?
         
@@ -38,12 +37,11 @@ internal struct SpanGridWidthListener: UIViewControllerRepresentable {
     static var notificationName = Notification.Name(rawValue: "SpanGrid.SceneWidthChanged")
     static var publisher: NotificationCenter.Publisher = NotificationCenter.default.publisher(for: notificationName)
     
-    func makeUIViewController(context: Context) -> some UIViewController {
+    func makeUIViewController(context _: Context) -> some UIViewController {
         ViewController()
     }
     
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+    func updateUIViewController(_: UIViewControllerType, context _: Context) {
         // Empty
     }
-    
 }

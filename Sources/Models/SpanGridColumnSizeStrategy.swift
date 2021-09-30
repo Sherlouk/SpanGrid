@@ -7,11 +7,15 @@
 
 import SwiftUI
 
+// MARK: - SpanGridColumnSizeStrategy
+
 public enum SpanGridColumnSizeStrategy {
     case fixed(count: Int, width: CGFloat, spacing: CGFloat)
     case custom((CGFloat) -> SpanGridColumnSizeResult)
     case dynamic
 }
+
+// MARK: - SpanGridColumnSizeResult
 
 public struct SpanGridColumnSizeResult {
     /// The total number of columns within a single row.
@@ -31,7 +35,6 @@ public struct SpanGridColumnSizeResult {
 }
 
 internal extension SpanGridColumnSizeStrategy {
-    
     func calculateResult(
         width: CGFloat,
         sizeCategory: ContentSizeCategory
@@ -54,5 +57,4 @@ internal extension SpanGridColumnSizeStrategy {
             return implementation(width)
         }
     }
-    
 }

@@ -7,8 +7,9 @@
 
 import SwiftUI
 
+// MARK: - SpanGridCellMetadata
+
 public struct SpanGridCellMetadata {
-    
     public struct Size {
         /// The width of the cell being rendered.
         ///
@@ -26,12 +27,11 @@ public struct SpanGridCellMetadata {
     
     /// The number of columns in the current layout.
     public let columnCount: Int
-    
 }
 
 public extension View {
     func frame(cellMetadata: SpanGridCellMetadata) -> some View {
-         frame(width: cellMetadata.size.width)
-        .frame(minHeight: cellMetadata.size.height)
+        frame(width: cellMetadata.size.width)
+            .frame(minHeight: cellMetadata.size.height)
     }
 }

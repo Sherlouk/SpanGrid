@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: - SpanGridLayoutSize
+
 public enum SpanGridLayoutSize {
     /// Spans a single column on a single row.
     case cell
@@ -21,12 +23,13 @@ public enum SpanGridLayoutSize {
     case span(Int)
 }
 
+// MARK: - SpanGridSizeInfoProvider
+
 public protocol SpanGridSizeInfoProvider {
     var layoutSize: SpanGridLayoutSize { get }
 }
 
 internal extension SpanGridLayoutSize {
-    
     func spanSize(columnCount: Int) -> Int {
         switch self {
         case .cell:
@@ -37,5 +40,4 @@ internal extension SpanGridLayoutSize {
             return min(spanSize, columnCount)
         }
     }
-    
 }

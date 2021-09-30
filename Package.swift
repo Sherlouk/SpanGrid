@@ -12,8 +12,8 @@ let package = Package(
         .library(name: "SpanGrid", targets: ["SpanGrid"]),
     ],
     dependencies: [
-      .package(name: "SnapshotTesting",
-               url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.9.0"),
+        .package(name: "SnapshotTesting",
+                 url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.9.0"),
     ],
     targets: [
         .target(
@@ -31,4 +31,3 @@ let package = Package(
         ),
     ]
 )
-

@@ -13,7 +13,6 @@ import SwiftUI
 /// The height of the tiles will be provided in order to keep them consistent across a single row.
 /// Items can span a row (all columns), or a single tile (one column).
 public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvider>: View {
-    
     @Environment(\.sizeCategory) var sizeCategory
     
     @State private var rowHeightLookup: [Int: CGFloat] = [:]
@@ -43,7 +42,7 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
         rowSizeStrategy: SpanGridRowSizeStrategy = .none,
         @ViewBuilder content: @escaping (Data, SpanGridCellMetadata) -> Content
     ) {
-        self.data = (0..<dataSource.count).map {
+        data = (0 ..< dataSource.count).map {
             SpanGridData(cellIndex: $0, data: dataSource[$0])
         }
         
@@ -80,7 +79,7 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
     }
     
     func heightForRow(
-        forItem item: SpanGridData<Data>,
+        forItem _: SpanGridData<Data>,
         columnSizeResult: SpanGridColumnSizeResult,
         rowOffset: Int
     ) -> CGFloat? {
@@ -101,9 +100,9 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
     
     public var body: some View {
         #if DEBUG
-        if #available(iOS 15.0, *) {
-            Self._printChanges()
-        }
+            if #available(iOS 15.0, *) {
+                Self._printChanges()
+            }
         #endif
         
         return GeometryReader { proxy in
@@ -170,9 +169,9 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
             let view = content(viewModel.data, metadata)
             
             switch rowSizeStrategy {
-                // Optimisation: No value to be gained by measuring row height if the span is the full
-                // width of the grid. This is because there will only be one cell on the row which can
-                // determine it's own height.
+            // Optimisation: No value to be gained by measuring row height if the span is the full
+            // width of the grid. This is because there will only be one cell on the row which can
+            // determine it's own height.
             case .largest where spanSize != columnSizeResult.columnCount:
                 view.overlay(SpanGridDetermineRowHeight(rowOffset: rowOffset))
             default:
@@ -180,5 +179,4 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
             }
         }
     }
-    
 }

@@ -5,11 +5,10 @@
 //  Created by James Sherlock on 28/09/2021.
 //
 
-import XCTest
 @testable import SpanGrid
+import XCTest
 
 class SpanGridWidthListenerTests: XCTestCase {
-    
     func testWidthListener_sendsNotificationWhenWidthChanges() {
         let mockCoordinator = MockUIViewControllerTransitionCoordinator()
         
@@ -92,29 +91,24 @@ class SpanGridWidthListenerTests: XCTestCase {
         var containerView: UIView = .init()
         var targetTransform: CGAffineTransform = .identity
         
-        func viewController(forKey key: UITransitionContextViewControllerKey) -> UIViewController? {
+        func viewController(forKey _: UITransitionContextViewControllerKey) -> UIViewController? {
             nil
         }
         
-        func view(forKey key: UITransitionContextViewKey) -> UIView? {
+        func view(forKey _: UITransitionContextViewKey) -> UIView? {
             nil
         }
         
-        func animate(alongsideTransition animation: ((UIViewControllerTransitionCoordinatorContext) -> Void)?, completion: ((UIViewControllerTransitionCoordinatorContext) -> Void)? = nil) -> Bool {
+        func animate(alongsideTransition _: ((UIViewControllerTransitionCoordinatorContext) -> Void)?, completion _: ((UIViewControllerTransitionCoordinatorContext) -> Void)? = nil) -> Bool {
             true
         }
         
-        func animateAlongsideTransition(in view: UIView?, animation: ((UIViewControllerTransitionCoordinatorContext) -> Void)?, completion: ((UIViewControllerTransitionCoordinatorContext) -> Void)? = nil) -> Bool {
+        func animateAlongsideTransition(in _: UIView?, animation _: ((UIViewControllerTransitionCoordinatorContext) -> Void)?, completion _: ((UIViewControllerTransitionCoordinatorContext) -> Void)? = nil) -> Bool {
             true
         }
         
-        func notifyWhenInteractionEnds(_ handler: @escaping (UIViewControllerTransitionCoordinatorContext) -> Void) {
-            
-        }
+        func notifyWhenInteractionEnds(_: @escaping (UIViewControllerTransitionCoordinatorContext) -> Void) {}
         
-        func notifyWhenInteractionChanges(_ handler: @escaping (UIViewControllerTransitionCoordinatorContext) -> Void) {
-            
-        }
+        func notifyWhenInteractionChanges(_: @escaping (UIViewControllerTransitionCoordinatorContext) -> Void) {}
     }
-    
 }

@@ -1,0 +1,11 @@
+--patternlet inline
+--swiftversion 5.5
+--trimwhitespace nonblank-lines
+
+--disable spaceInsideBrackets
+
+--enable isEmpty
+--enable markTypes
+--enable sortedSwitchCases
+--enable wrapEnumCases
+--enable wrapSwitchCases

@@ -8,7 +8,6 @@
 import SwiftUI
 
 internal struct SpanGridDynamicColumnSizeStrategy {
-    
     let maximumColumnCount: Int = 3
     
     let maximumGridWidth: CGFloat = 960
@@ -57,5 +56,4 @@ internal struct SpanGridDynamicColumnSizeStrategy {
             tileWidth: tileWidth
         )
     }
-    
 }
