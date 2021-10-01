@@ -20,6 +20,9 @@ struct SpanGridKeyboardNavigationShortcuts: View {
     var body: some View {
         VStack {
             if enabled {
+                #warning("Feature: Could we hide the button labels from discoverability window? Or do we need to localize?")
+                #warning("Feature: Can we use arrow keys instead of WASD?")
+                
                 Button("Navigate up a row") { callback(.up) }
                     .keyboardShortcut("w", modifiers: [])
                 
