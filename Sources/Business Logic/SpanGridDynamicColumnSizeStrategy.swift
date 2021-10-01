@@ -9,12 +9,12 @@ import SwiftUI
 internal struct SpanGridDynamicColumnSizeStrategy {
     let maximumColumnCount: Int = 3
     
-    let maximumGridWidth: CGFloat = 960
+    let maximumGridWidth: CGFloat = 1160
     let maximumGridWidthAccessibility: CGFloat = 600
     
     let minimumTileWidth: CGFloat = 232
     
-    let minimumGutterCompact: CGFloat = 20 * 2
+    let minimumGutterCompact: CGFloat = 24 * 2
     let minimumGutterRegular: CGFloat = 32 * 2
     
     let interitemSpacingCompact: Int = 16
@@ -22,18 +22,20 @@ internal struct SpanGridDynamicColumnSizeStrategy {
     
     func calculate(
         width: CGFloat,
-        sizeCategory: ContentSizeCategory
+        traits: UITraitCollection
     ) -> SpanGridColumnSizeResult {
-        let wideSystem = width > 800
+        let wideSystem = width > 840
         
         let minimumGutter = wideSystem ? minimumGutterRegular : minimumGutterCompact
+        
+        let minimumTileWidth = traits.horizontalSizeClass == .compact ? 270 : minimumTileWidth
         
         var usableWidth = min(width, maximumGridWidth) - minimumGutter
         
         let columnSqueezeCount = usableWidth / minimumTileWidth
         var targetColumnCount = max(min(floor(columnSqueezeCount), CGFloat(maximumColumnCount)), 1)
         
-        if sizeCategory.isAccessibilityCategory {
+        if traits.preferredContentSizeCategory.isAccessibilityCategory {
             targetColumnCount = 1
             usableWidth = min(usableWidth, maximumGridWidthAccessibility + minimumGutter)
         }

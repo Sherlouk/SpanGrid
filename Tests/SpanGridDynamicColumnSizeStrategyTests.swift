@@ -14,66 +14,90 @@ class SpanGridDynamicColumnSizeStrategyTests: XCTestCase {
     func testDynamicStrategy_snapshots() {
         // https://www.ios-resolution.com/
         
-        runTest(width: 320) // iPod Touch • iPhone SE (1st Gen)
-        runTest(width: 375) // iPhone 13 Mini
-        runTest(width: 390) // iPhone 13
-        runTest(width: 428) // iPhone 13 Pro Max
+        runTest(device: .iPhoneSe(.portrait), name: "iPhone SE (Portrait)")
+        runTest(device: .iPhoneSe(.landscape), name: "iPhone SE (Landscape)")
         
-        runTest(width: 812) // iPhone 13 Mini (Landscape)
-        runTest(width: 844) // iPhone 13 (Landscape)
-        runTest(width: 926) // iPhone 13 Pro Max (Landscape)
+        runTest(device: .iPhone8(.portrait), name: "iPhone 8 (Portrait)")
+        runTest(device: .iPhone8(.landscape), name: "iPhone 8 (Landscape)")
         
-        runTest(width: 414) // Common Phone Size
+        runTest(device: .iPhoneXsMax(.portrait), name: "iPhone XS Max (Portrait)")
+        runTest(device: .iPhoneXsMax(.landscape), name: "iPhone XS Max (Landscape)")
         
-        runTest(width: 744) // iPad Mini 6th Gen
-        runTest(width: 768) // Common Tablet Size
-        runTest(width: 834) // iPad Pro 11"
-        runTest(width: 1024) // iPad Pro 12.9"
+        runTest(device: .iPadMini(.portrait), name: "iPad Mini (Portrait)")
+        runTest(device: .iPadMini(.portrait(splitView: .twoThirds)), name: "iPad Mini (Portrait • Two Thirds)")
+        runTest(device: .iPadMini(.landscape(splitView: .oneHalf)), name: "iPad Mini (Landscape • One Half)")
         
-        runTest(width: 1133) // iPad Mini 6th Gen (Landscape)
-        runTest(width: 1194) // iPad Pro 11" (Landscape)
-        runTest(width: 1366) // iPad Pro 12.9" (Landscape)
+        runTest(device: .iPadPro11(.portrait), name: "iPad Pro 11\" (Portrait)")
+        runTest(device: .iPadPro11(.landscape), name: "iPad Pro 11\" (Landscape)")
+        runTest(device: .iPadPro11(.portrait(splitView: .twoThirds)), name: "iPad Pro 11\" (Portrait • Two Thirds)")
+        runTest(device: .iPadPro11(.landscape(splitView: .oneHalf)), name: "iPad Pro 11\" (Landscape • One Half)")
         
-        runTest(width: 639) // iPad Pro 12.9" (Portrait • 1/3 Split View)
-        runTest(width: 981) // iPad Pro 12.9" (Landscape • 1/3 Split View)
-        runTest(width: 678) // iPad Pro 12.9" (Landscape • 1/2 Split View)
+        runTest(device: .iPadPro12_9(.portrait), name: "iPad Pro 12.9\" (Portrait) or iPad Mini (Landscape)")
+        runTest(device: .iPadPro12_9(.landscape), name: "iPad Pro 12.9\" (Landscape)")
+        runTest(device: .iPadPro12_9(.portrait(splitView: .twoThirds)), name: "iPad Pro 12.9\" (Portrait • Two Thirds)")
+        runTest(device: .iPadPro12_9(.landscape(splitView: .oneHalf)), name: "iPad Pro 12.9\" (Landscape • One Half)")
         
-        runTest(
-            width: 1366,
-            traits: .init(preferredContentSizeCategory: .accessibilityLarge),
-            name: "traits.accessibility-large"
-        )
+        runTest(device: .iPhoneSe, name: "iPhone SE • Accessibility",
+                traits: .init(preferredContentSizeCategory: .accessibilityLarge))
+        runTest(device: .iPhoneXsMax, name: "iPhone XS Max • Accessibility",
+                traits: .init(preferredContentSizeCategory: .accessibilityLarge))
+        runTest(device: .iPadMini, name: "iPad Pro 12.9\" • Accessibility",
+                traits: .init(preferredContentSizeCategory: .accessibilityLarge))
+        runTest(device: .iPadPro12_9(.landscape), name: "iPad Pro 12.9\" • Accessibility",
+                traits: .init(preferredContentSizeCategory: .accessibilityLarge))
     }
     
     func runTest(
-        width: CGFloat,
+        device: ViewImageConfig,
+        name: String,
         traits: UITraitCollection = .init(),
-        name: String? = nil,
         file: StaticString = #file,
         testName: String = #function,
         line: UInt = #line
     ) {
-        let data = (0 ..< 13).map { offset -> ViewModel in
+        let width: CGFloat = device.size?.width ?? 0
+        
+        let data = (0 ..< 7).map { offset -> ViewModel in
             ViewModel(id: offset, layoutSize: offset == 0 ? .row : .cell)
         }
         
         let grid = SpanGrid(
             dataSource: data,
             columnSizeStrategy: .dynamic
-        ) { _, metadata in
+        ) { viewModel, metadata in
             
-            Rectangle()
-                .frame(width: metadata.size.width, height: 25)
-                .foregroundColor(.red)
+            ZStack {
+                VStack {
+                    if viewModel.id == 0 {
+                        Text(name)
+                            .font(.system(size: 14, weight: .bold))
+                    }
+                    
+                    Text("\(Int(metadata.size.width))")
+                        .font(.system(size: 14))
+                }
+            }
+            .frame(width: metadata.size.width, height: viewModel.id == 0 ? 100 : 24)
+            .background(Color.blue.opacity(0.2))
         }
+        
+        let combinedTraits = UITraitCollection(traitsFrom: [ device.traits, traits ])
+        
+        let name: String = [
+            "\(Int(width))",
+            traits.horizontalSizeClass == .compact ? "compact" : nil,
+            traits.preferredContentSizeCategory == .accessibilityLarge ? "accessibility" : nil,
+        ]
+        .compactMap { $0 }
+        .joined(separator: ".")
         
         assertSnapshot(
             matching: grid,
             as: .image(
                 layout: .fixed(width: width, height: 1000),
-                traits: traits
+                traits: combinedTraits
             ),
-            named: name ?? "\(Int(width))",
+            named: name,
             file: file,
             testName: testName,
             line: line

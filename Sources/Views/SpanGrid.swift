@@ -13,6 +13,7 @@ import SwiftUI
 /// Items can span a row (all columns), or a single tile (one column).
 public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvider>: View {
     @Environment(\.sizeCategory) var sizeCategory
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     @State private var rowHeightLookup: [Int: CGFloat] = [:]
     
@@ -107,7 +108,10 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
         return GeometryReader { proxy in
             let columnSizeResult = columnSizeStrategy.calculateResult(
                 width: proxy.size.width,
-                sizeCategory: sizeCategory
+                traits: .init(traitsFrom: [
+                    .init(preferredContentSizeCategory: sizeCategory.uiKit),
+                    .init(horizontalSizeClass: horizontalSizeClass == .regular ? .regular : .compact),
+                ])
             )
             
             let columns: [GridItem] = .init(

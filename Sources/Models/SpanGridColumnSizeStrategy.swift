@@ -10,7 +10,7 @@ import SwiftUI
 
 public enum SpanGridColumnSizeStrategy {
     case fixed(count: Int, width: CGFloat, spacing: CGFloat)
-    case custom((CGFloat) -> SpanGridColumnSizeResult)
+    case custom((CGFloat, UITraitCollection) -> SpanGridColumnSizeResult)
     case dynamic
 }
 
@@ -36,7 +36,7 @@ public struct SpanGridColumnSizeResult {
 internal extension SpanGridColumnSizeStrategy {
     func calculateResult(
         width: CGFloat,
-        sizeCategory: ContentSizeCategory
+        traits: UITraitCollection
     ) -> SpanGridColumnSizeResult {
         switch self {
         case .fixed(let count, let width, let spacing):
@@ -49,11 +49,11 @@ internal extension SpanGridColumnSizeStrategy {
         case .dynamic:
             return SpanGridDynamicColumnSizeStrategy().calculate(
                 width: width,
-                sizeCategory: sizeCategory
+                traits: traits
             )
             
         case .custom(let implementation):
-            return implementation(width)
+            return implementation(width, traits)
         }
     }
 }

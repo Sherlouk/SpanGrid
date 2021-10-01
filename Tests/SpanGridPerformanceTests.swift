@@ -81,7 +81,9 @@ class SpanGridPerformanceTests: XCTestCase {
             for _ in 0 ..< 1000 {
                 _ = strategy.calculate(
                     width: .random(in: 320 ... 2500),
-                    sizeCategory: Bool.random() ? .large : .accessibilityExtraExtraExtraLarge
+                    traits: .init(traitsFrom: [
+                        .init(preferredContentSizeCategory: Bool.random() ? .large : .accessibilityExtraExtraExtraLarge),
+                    ])
                 )
             }
         }
