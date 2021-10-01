@@ -6,41 +6,70 @@
 
 import SwiftUI
 
-internal struct SpanGridDynamicColumnSizeStrategy {
-    let maximumColumnCount: Int = 3
+public struct SpanGridDynamicColumnSizeStrategy {
     
-    let maximumGridWidth: CGFloat = 1160
-    let maximumGridWidthAccessibility: CGFloat = 600
+    public struct Configuration {
+        let maximumGridWidth: CGFloat
+        let maximumGridWidthAccessibility: CGFloat
+        
+        let minimumTileWidthCompact: CGFloat
+        let minimumTileWidthRegular: CGFloat
+        
+        let interitemSpacingCompact: Int
+        let interitemSpacingRegular: Int
+        
+        let minimumGutterCompact: CGFloat
+        let minimumGutterRegular: CGFloat
+        
+        public init(
+            maximumGridWidth: CGFloat = 1160,
+            maximumGridWidthAccessibility: CGFloat = 600,
+            minimumTileWidthCompact: CGFloat = 270,
+            minimumTileWidthRegular: CGFloat = 232,
+            interitemSpacingCompact: Int = 16,
+            interitemSpacingRegular: Int = 24,
+            minimumGutterCompact: CGFloat = 24 * 2,
+            minimumGutterRegular: CGFloat = 32 * 2
+        ) {
+            self.maximumGridWidth = maximumGridWidth
+            self.maximumGridWidthAccessibility = maximumGridWidthAccessibility
+            self.minimumTileWidthCompact = minimumTileWidthCompact
+            self.minimumTileWidthRegular = minimumTileWidthRegular
+            self.interitemSpacingCompact = interitemSpacingCompact
+            self.interitemSpacingRegular = interitemSpacingRegular
+            self.minimumGutterCompact = minimumGutterCompact
+            self.minimumGutterRegular = minimumGutterRegular
+        }
+    }
     
-    let minimumTileWidth: CGFloat = 232
+    let maximumColumnCount: Int
+    let configuration: Configuration
     
-    let minimumGutterCompact: CGFloat = 24 * 2
-    let minimumGutterRegular: CGFloat = 32 * 2
-    
-    let interitemSpacingCompact: Int = 16
-    let interitemSpacingRegular: Int = 24
+    internal init(maximumColumnCount: Int = 3, configuration: Configuration = .init()) {
+        self.maximumColumnCount = maximumColumnCount
+        self.configuration = configuration
+    }
     
     func calculate(
         width: CGFloat,
         traits: UITraitCollection
     ) -> SpanGridColumnSizeResult {
-        let wideSystem = width > 840
+        let compactLayout = traits.horizontalSizeClass == .compact
         
-        let minimumGutter = wideSystem ? minimumGutterRegular : minimumGutterCompact
+        let minimumGutter = compactLayout ? configuration.minimumGutterCompact : configuration.minimumGutterRegular
+        let minimumTileWidth = compactLayout ? configuration.minimumTileWidthCompact : configuration.minimumTileWidthRegular
+        let interitemSpacing = compactLayout ? configuration.interitemSpacingRegular : configuration.interitemSpacingCompact
         
-        let minimumTileWidth = traits.horizontalSizeClass == .compact ? 270 : minimumTileWidth
-        
-        var usableWidth = min(width, maximumGridWidth) - minimumGutter
+        var usableWidth = min(width, configuration.maximumGridWidth) - minimumGutter
         
         let columnSqueezeCount = usableWidth / minimumTileWidth
         var targetColumnCount = max(min(floor(columnSqueezeCount), CGFloat(maximumColumnCount)), 1)
         
         if traits.preferredContentSizeCategory.isAccessibilityCategory {
             targetColumnCount = 1
-            usableWidth = min(usableWidth, maximumGridWidthAccessibility + minimumGutter)
+            usableWidth = min(usableWidth, configuration.maximumGridWidthAccessibility + minimumGutter)
         }
         
-        let interitemSpacing = wideSystem ? interitemSpacingRegular : interitemSpacingCompact
         let interitemSpacingTotal = CGFloat(interitemSpacing * (Int(targetColumnCount) - 1))
         
         if Int(targetColumnCount) == 1 {

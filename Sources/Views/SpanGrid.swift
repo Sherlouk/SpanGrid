@@ -38,7 +38,7 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
     
     public init(
         dataSource: [Data],
-        columnSizeStrategy: SpanGridColumnSizeStrategy = .dynamic,
+        columnSizeStrategy: SpanGridColumnSizeStrategy = .dynamicProvider(),
         rowSizeStrategy: SpanGridRowSizeStrategy = .none,
         @ViewBuilder content: @escaping (Data, SpanGridCellMetadata) -> Content
     ) {
@@ -140,7 +140,8 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
             .onPreferenceChange(SpanGridRowPreferenceKey.self) { newValue in rowHeightLookup = newValue }
             .onReceive(sizeCategoryPublisher) { _ in rowHeightLookup = [:] }
             .onReceive(widthChangePublisher) { _ in rowHeightLookup = [:] }
-            .overlay(SpanGridWidthListener().allowsHitTesting(false))
+            .overlay(SpanGridWidthListener(dynamicConfiguration: columnSizeStrategy.dynamicConfiguration)
+                        .allowsHitTesting(false))
         }
     }
     

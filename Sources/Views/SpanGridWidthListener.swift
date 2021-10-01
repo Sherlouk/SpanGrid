@@ -9,10 +9,23 @@ import SwiftUI
 internal struct SpanGridWidthListener: UIViewControllerRepresentable {
     internal class ViewController: UIViewController {
         var lastKnownSize: CGSize?
+        let dynamicConfiguration: SpanGridDynamicColumnSizeStrategy.Configuration?
+        
+        init(dynamicConfiguration: SpanGridDynamicColumnSizeStrategy.Configuration?) {
+            self.dynamicConfiguration = dynamicConfiguration
+            super.init(nibName: nil, bundle: nil)
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
         
         var maxGridWidth: CGFloat {
-            let strategy = SpanGridDynamicColumnSizeStrategy()
-            return strategy.maximumGridWidth + strategy.minimumGutterRegular
+            if let dynamicConfiguration = dynamicConfiguration {
+                return dynamicConfiguration.maximumGridWidth + dynamicConfiguration.minimumGutterRegular
+            } else {
+                return 0
+            }
         }
         
         override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -36,8 +49,10 @@ internal struct SpanGridWidthListener: UIViewControllerRepresentable {
     static var notificationName = Notification.Name(rawValue: "SpanGrid.SceneWidthChanged")
     static var publisher: NotificationCenter.Publisher = NotificationCenter.default.publisher(for: notificationName)
     
+    let dynamicConfiguration: SpanGridDynamicColumnSizeStrategy.Configuration?
+    
     func makeUIViewController(context _: Context) -> some UIViewController {
-        ViewController()
+        ViewController(dynamicConfiguration: dynamicConfiguration)
     }
     
     func updateUIViewController(_: UIViewControllerType, context _: Context) {

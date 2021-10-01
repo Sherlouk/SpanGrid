@@ -11,7 +11,7 @@ class SpanGridWidthListenerTests: XCTestCase {
     func testWidthListener_sendsNotificationWhenWidthChanges() {
         let mockCoordinator = MockUIViewControllerTransitionCoordinator()
         
-        let viewController = SpanGridWidthListener.ViewController()
+        let viewController = SpanGridWidthListener.ViewController(dynamicConfiguration: nil)
         viewController.lastKnownSize = CGSize(width: 100, height: 120)
         
         let exp = expectation(forNotification: SpanGridWidthListener.notificationName, object: nil, handler: nil)
@@ -26,7 +26,7 @@ class SpanGridWidthListenerTests: XCTestCase {
     func testWidthListener_noNotificationIfWidthExceedsMaximum() {
         let mockCoordinator = MockUIViewControllerTransitionCoordinator()
         
-        let viewController = SpanGridWidthListener.ViewController()
+        let viewController = SpanGridWidthListener.ViewController(dynamicConfiguration: nil)
         viewController.lastKnownSize = CGSize(width: 2000, height: 120)
         
         let exp = expectation(forNotification: SpanGridWidthListener.notificationName, object: nil, handler: nil)
@@ -48,7 +48,7 @@ class SpanGridWidthListenerTests: XCTestCase {
     func testWidthListener_noNotificationIfOnlyHeightChanges() {
         let mockCoordinator = MockUIViewControllerTransitionCoordinator()
         
-        let viewController = SpanGridWidthListener.ViewController()
+        let viewController = SpanGridWidthListener.ViewController(dynamicConfiguration: nil)
         viewController.lastKnownSize = CGSize(width: 100, height: 120)
         
         let exp = expectation(forNotification: SpanGridWidthListener.notificationName, object: nil, handler: nil)
@@ -61,7 +61,7 @@ class SpanGridWidthListenerTests: XCTestCase {
     
     func testWidthListener_lastKnownSizeIsUpdated() {
         let mockCoordinator = MockUIViewControllerTransitionCoordinator()
-        let viewController = SpanGridWidthListener.ViewController()
+        let viewController = SpanGridWidthListener.ViewController(dynamicConfiguration: nil)
         
         // Start with nothing
         XCTAssertNil(viewController.lastKnownSize)

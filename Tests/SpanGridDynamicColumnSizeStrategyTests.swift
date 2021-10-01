@@ -61,10 +61,7 @@ class SpanGridDynamicColumnSizeStrategyTests: XCTestCase {
             ViewModel(id: offset, layoutSize: offset == 0 ? .row : .cell)
         }
         
-        let grid = SpanGrid(
-            dataSource: data,
-            columnSizeStrategy: .dynamic
-        ) { viewModel, metadata in
+        let grid = SpanGrid(dataSource: data) { viewModel, metadata in
             
             ZStack {
                 VStack {
@@ -98,6 +95,7 @@ class SpanGridDynamicColumnSizeStrategyTests: XCTestCase {
                 traits: combinedTraits
             ),
             named: name,
+            record: true,
             file: file,
             testName: testName,
             line: line
