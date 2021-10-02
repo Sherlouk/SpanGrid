@@ -52,18 +52,18 @@ class SpanGridKeyboardNavigation<Content: View, Data: Identifiable & SpanGridSiz
             let spanIndexOffset = mutableSpanIndex - originalSpanIndex
             
             #warning("Bug Fix: We need to take into account cell prefix size for whitespace")
-            // let spanPrefix = grid.calculateCellPrefix(spanSize: spanSize, columnCount: columnCount, spanIndex: mutableSpanIndex)
+            let spanPrefix = grid.calculateCellPrefix(spanSize: spanSize, columnCount: columnCount, spanIndex: mutableSpanIndex)
             
             switch direction {
             case .left where spanSize == 1:
-                mutableSpanIndex -= spanSize
+                mutableSpanIndex -= spanSize - spanPrefix
             case .left:
-                mutableSpanIndex -= spanSize - (spanSize - spanIndexOffset) + 1
+                mutableSpanIndex -= spanSize - (spanSize - spanIndexOffset) + 1 - spanPrefix
                 
             case .right where spanSize == 1:
-                mutableSpanIndex += spanSize
+                mutableSpanIndex += spanSize + spanPrefix
             case .right:
-                mutableSpanIndex += spanSize - spanIndexOffset
+                mutableSpanIndex += spanSize - spanIndexOffset + spanPrefix
                 
             case .up:
                 mutableSpanIndex -= columnCount
@@ -75,29 +75,35 @@ class SpanGridKeyboardNavigation<Content: View, Data: Identifiable & SpanGridSiz
                 return
             }
             
-            #warning("Optimisation: Cache a dictionary of spanIndex: itemIndex for the full range of data?")
-            let spanCache = grid.spanIndexCalculator.cache.sorted(by: { $0.key < $1.key })
-            var lastItem: Int?
+            guard let newItem = strongSelf.getItem(forSpanIndex: mutableSpanIndex, grid: grid) else {
+                return
+            }
             
-            for item in spanCache {
-                if item.value >= mutableSpanIndex {
-                    let diff = item.value - mutableSpanIndex
-                    
-                    if diff > 0 {
-                        if strongSelf.setCurrentItem(newValue: lastItem ?? item.key) {
-                            strongSelf.currentSpanIndex = mutableSpanIndex
-                        }
-                    } else {
-                        if strongSelf.setCurrentItem(newValue: item.key) {
-                            strongSelf.currentSpanIndex = mutableSpanIndex
-                        }
-                    }
-                    
-                    return
-                }
-                
-                lastItem = item.key
+            if strongSelf.setCurrentItem(newValue: newItem) {
+                strongSelf.currentSpanIndex = mutableSpanIndex
             }
         }
+    }
+    
+    func getItem(forSpanIndex mutableSpanIndex: Int, grid: SpanGrid<Content, Data>) -> Int? {
+        #warning("Optimisation: Cache a dictionary of spanIndex: itemIndex for the full range of data?")
+        let spanCache = grid.spanIndexCalculator.cache.sorted(by: { $0.key < $1.key })
+        var lastItem: Int?
+        
+        for item in spanCache {
+            if item.value >= mutableSpanIndex {
+                let diff = item.value - mutableSpanIndex
+                
+                if diff > 0 {
+                    return lastItem ?? item.key
+                } else {
+                    return item.key
+                }
+            }
+            
+            lastItem = item.key
+        }
+        
+        return nil
     }
 }

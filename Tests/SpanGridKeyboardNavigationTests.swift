@@ -163,28 +163,26 @@ class SpanGridKeyboardNavigationTests: XCTestCase {
         }
         
         do { // horizontal navigation
-            XCTExpectFailure {
-                let coordinator = createComplexKeyboardCoordinator()
-                let process = coordinator.processDirection(3)
-                
-                process(.down)
-                process(.down)
-                process(.down)
-                process(.down)
-                process(.down)
-                process(.down) // sixth row
-                XCTAssertEqual(coordinator.currentItem, 14)
-                process(.right) // second column
-                XCTAssertEqual(coordinator.currentItem, 15)
-                process(.right) // into whitespace (expect to wrap)
-                XCTAssertEqual(coordinator.currentItem, 16)
-                process(.right) // to next item (col span 2)
-                XCTAssertEqual(coordinator.currentItem, 17)
-                process(.left) // back to col span 2
-                XCTAssertEqual(coordinator.currentItem, 16)
-                process(.left) // back to other side of whitespace
-                XCTAssertEqual(coordinator.currentItem, 15)
-            }
+            let coordinator = createComplexKeyboardCoordinator()
+            let process = coordinator.processDirection(3)
+            
+            process(.down)
+            process(.down)
+            process(.down)
+            process(.down)
+            process(.down)
+            process(.down) // sixth row
+            XCTAssertEqual(coordinator.currentItem, 14)
+            process(.right) // second column
+            XCTAssertEqual(coordinator.currentItem, 15)
+            process(.right) // into whitespace (expect to wrap)
+            XCTAssertEqual(coordinator.currentItem, 16)
+            process(.right) // to next item (col span 2)
+            XCTAssertEqual(coordinator.currentItem, 17)
+            process(.left) // back to col span 2
+            XCTAssertEqual(coordinator.currentItem, 16)
+            process(.left) // back to other side of whitespace
+            XCTAssertEqual(coordinator.currentItem, 15)
         }
     }
     
