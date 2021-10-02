@@ -51,7 +51,11 @@ class SpanGridKeyboardNavigation<Content: View, Data: Identifiable & SpanGridSiz
             let originalSpanIndex = grid.spanIndexCalculator.getSpanIndex(forItemWithOffset: currentItem, columnCount: columnCount)
             let spanIndexOffset = mutableSpanIndex - originalSpanIndex
             
-            let spanPrefix = grid.calculateCellPrefix(spanSize: spanSize, columnCount: columnCount, spanIndex: mutableSpanIndex)
+            let spanPrefix = grid.calculateCellPrefix(
+                spanSize: spanSize,
+                columnCount: columnCount,
+                spanIndex: direction == .left ? mutableSpanIndex : originalSpanIndex
+            )
             
             switch direction {
             case .left where spanSize == 1:
@@ -79,6 +83,7 @@ class SpanGridKeyboardNavigation<Content: View, Data: Identifiable & SpanGridSiz
             }
             
             guard let newItem = grid.spanIndexCalculator.reverseLookup[mutableSpanIndex] else {
+                print("[SpanGridKeyboardNavigation] Unknown Span Index: \(mutableSpanIndex)")
                 return
             }
             

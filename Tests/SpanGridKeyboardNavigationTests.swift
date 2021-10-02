@@ -184,46 +184,42 @@ class SpanGridKeyboardNavigationTests: XCTestCase {
         }
         
         do { // mixed navigation
-            XCTExpectFailure {
-                let coordinator = createComplexKeyboardCoordinator()
-                let process = coordinator.processDirection(3)
-                
-                process(.down)
-                process(.down)
-                process(.down)
-                process(.down)
-                process(.down)
-                process(.down) // sixth row
-                XCTAssertEqual(coordinator.currentItem, 14)
-                process(.down) // seventh row (span:2 prefix:1)
-                XCTAssertEqual(coordinator.currentItem, 16)
-                process(.right)
-                XCTAssertEqual(coordinator.currentItem, 17)
-                process(.left)
-                XCTAssertEqual(coordinator.currentItem, 16)
-            }
+            let coordinator = createComplexKeyboardCoordinator()
+            let process = coordinator.processDirection(3)
+            
+            process(.down)
+            process(.down)
+            process(.down)
+            process(.down)
+            process(.down)
+            process(.down) // sixth row
+            XCTAssertEqual(coordinator.currentItem, 14)
+            process(.down) // seventh row (span:2 prefix:1)
+            XCTAssertEqual(coordinator.currentItem, 16)
+            process(.right)
+            XCTAssertEqual(coordinator.currentItem, 17)
+            process(.left)
+            XCTAssertEqual(coordinator.currentItem, 16)
         }
         
         do { // mixed navigation
-            XCTExpectFailure {
-                let coordinator = createComplexKeyboardCoordinator()
-                let process = coordinator.processDirection(3)
-                
-                process(.down)
-                process(.down)
-                process(.down)
-                process(.down)
-                process(.down)
-                process(.down)
-                process(.right) // sixth row second item
-                XCTAssertEqual(coordinator.currentItem, 15)
-                process(.down) // seventh row (span:2 prefix:1)
-                XCTAssertEqual(coordinator.currentItem, 16)
-                process(.right)
-                XCTAssertEqual(coordinator.currentItem, 17)
-                process(.left)
-                XCTAssertEqual(coordinator.currentItem, 16)
-            }
+            let coordinator = createComplexKeyboardCoordinator()
+            let process = coordinator.processDirection(3)
+            
+            process(.down)
+            process(.down)
+            process(.down)
+            process(.down)
+            process(.down)
+            process(.down)
+            process(.right) // sixth row second item
+            XCTAssertEqual(coordinator.currentItem, 15)
+            process(.down) // seventh row (span:2 prefix:1)
+            XCTAssertEqual(coordinator.currentItem, 16)
+            process(.right)
+            XCTAssertEqual(coordinator.currentItem, 17)
+            process(.left)
+            XCTAssertEqual(coordinator.currentItem, 16)
         }
     }
     
