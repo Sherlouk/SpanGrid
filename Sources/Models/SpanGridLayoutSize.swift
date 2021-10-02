@@ -8,7 +8,7 @@ import Foundation
 
 // MARK: - SpanGridLayoutSize
 
-public enum SpanGridLayoutSize {
+public enum SpanGridLayoutSize: Equatable {
     /// Spans a single column on a single row.
     case cell
     

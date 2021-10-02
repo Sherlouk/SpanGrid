@@ -22,7 +22,7 @@ public struct SpanGridDynamicColumnSizeStrategy {
         
         public init(
             maximumGridWidth: CGFloat = 1160,
-            maximumGridWidthAccessibility: CGFloat = 600,
+            maximumGridWidthAccessibility: CGFloat = 840,
             minimumTileWidthCompact: CGFloat = 270,
             minimumTileWidthRegular: CGFloat = 232,
             interitemSpacingCompact: Int = 16,

@@ -34,6 +34,8 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
     let columnSizeStrategy: SpanGridColumnSizeStrategy
     let rowSizeStrategy: SpanGridRowSizeStrategy
     
+    let verticalPadding: CGFloat
+    
     let spanIndexCalculator = SpanGridSpanIndexCalculator<Content, Data>()
     
     let keyboardNavigationOptions: SpanGridKeyboardNavigationOptions
@@ -44,6 +46,7 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
         columnSizeStrategy: SpanGridColumnSizeStrategy = .dynamicProvider(),
         rowSizeStrategy: SpanGridRowSizeStrategy = .none,
         keyboardNavigationOptions: SpanGridKeyboardNavigationOptions = .init(),
+        verticalPadding: CGFloat = 0,
         @ViewBuilder content: @escaping (Data, SpanGridCellMetadata) -> Content
     ) {
         data = (0 ..< dataSource.count).map {
@@ -55,6 +58,7 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
         self.columnSizeStrategy = columnSizeStrategy
         self.rowSizeStrategy = rowSizeStrategy
         self.keyboardNavigationOptions = keyboardNavigationOptions
+        self.verticalPadding = verticalPadding
         
         spanIndexCalculator.grid = self
         rowHeightLookup.reserveCapacity(data.count)
@@ -86,7 +90,6 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
     }
     
     func heightForRow(
-        forItem _: SpanGridData<Data>,
         columnSizeResult: SpanGridColumnSizeResult,
         rowOffset: Int
     ) -> CGFloat? {
@@ -143,6 +146,7 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
                         )
                     }
                 }
+                .padding(.vertical, verticalPadding)
             }
             .onPreferenceChange(SpanGridRowPreferenceKey.self) { newValue in rowHeightLookup = newValue }
             .onReceive(sizeCategoryPublisher) { _ in rowHeightLookup = [:] }
@@ -161,19 +165,18 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
         
         let spanSize = viewModel.data.layoutSize.spanSize(columnCount: columnCount)
         let spanIndex = spanIndexCalculator.getSpanIndex(forItemWithOffset: viewModel.cellIndex, columnCount: columnCount)
-        
+        let prefixSpace = calculateCellPrefix(spanSize: spanSize, columnCount: columnCount, spanIndex: spanIndex)
         SpanGridSpanView(
             layoutSize: viewModel.data.layoutSize,
-            prefixSpace: calculateCellPrefix(spanSize: spanSize, columnCount: columnCount, spanIndex: spanIndex),
+            prefixSpace: prefixSpace,
             columnSizeResult: columnSizeResult
         ) { width in
-            let rowOffset = spanIndex / columnSizeResult.columnCount
+            let rowOffset = (spanIndex + prefixSpace) / columnSizeResult.columnCount
             
             let metadata = SpanGridCellMetadata(
                 size: .init(
                     width: width,
                     height: heightForRow(
-                        forItem: viewModel,
                         columnSizeResult: columnSizeResult,
                         rowOffset: rowOffset
                     )

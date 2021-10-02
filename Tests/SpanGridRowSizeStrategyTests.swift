@@ -20,6 +20,35 @@ class SpanGridRowSizeStrategyTests: XCTestCase {
         runTest(withStrategy: .none, name: "none")
     }
     
+    func test_issue6() {
+        // https://github.com/Sherlouk/SpanGrid/issues/6
+        
+        let data = (0 ..< 5).map { offset -> ViewModel in
+            ViewModel(id: offset, layoutSize: offset == 1 ? .row : .cell)
+        }
+        
+        let grid = SpanGrid(
+            dataSource: data,
+            columnSizeStrategy: .fixed(count: 3, width: 100, spacing: 20),
+            rowSizeStrategy: .largest
+        ) { model, metadata in
+            VStack(spacing: 0) {
+                Rectangle()
+                    .foregroundColor(.blue)
+                    .frame(minHeight: model.id == 1 ? 10 : 50)
+                Spacer(minLength: 0)
+            }
+            .frame(cellMetadata: metadata)
+        }
+        
+        assertSnapshot(
+            matching: grid,
+            as: .image(
+                layout: .fixed(width: 360, height: 360)
+            )
+        )
+    }
+    
     func runTest(
         withStrategy strategy: SpanGridRowSizeStrategy,
         columnCount: Int = 3,
