@@ -7,6 +7,7 @@ let package = Package(
     name: "SpanGrid",
     platforms: [
         .iOS(.v14),
+        .tvOS(.v14),
     ],
     products: [
         .library(name: "SpanGrid", targets: ["SpanGrid"]),

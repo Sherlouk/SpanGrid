@@ -95,7 +95,6 @@ class SpanGridDynamicColumnSizeStrategyTests: XCTestCase {
                 traits: combinedTraits
             ),
             named: name,
-            record: true,
             file: file,
             testName: testName,
             line: line
