@@ -106,7 +106,7 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
     }
     
     public var body: some View {
-        #if DEBUG
+        #if !targetEnvironment(macCatalyst) && DEBUG
             if #available(iOS 15.0, *) {
                 Self._printChanges()
             }
