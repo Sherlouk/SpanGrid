@@ -228,7 +228,7 @@ class SpanGridKeyboardNavigationTests: XCTestCase {
             ],
             options: options
         ) {
-            // 🚨 Was 2.2s, now 3.154s after keyboard navigation work (isInvalidCell)
+            // Sitting at around 0.135s
             let coordinator = createKeyboardCoordinator(size: 100)
             coordinator.grid?.spanIndexCalculator.precalculateSpanIndex(columnCount: 3)
             let process = coordinator.processDirection(3)
@@ -267,6 +267,20 @@ class SpanGridKeyboardNavigationTests: XCTestCase {
             columnSizeStrategy: .fixed(count: 3, width: 100, spacing: 0),
             keyboardNavigationEnabled: true
         ) { _, _ in
+            Rectangle()
+        }.keyboardNavigationCoordinator
+    }
+    
+    func createComplexKeyboardCoordinator_FourColumn() -> SpanGridKeyboardNavigation<Rectangle, ViewModel> {
+        let data = (0 ..< 30).map { offset -> ViewModel in
+            ViewModel(id: offset, layoutSize: offset == 6 || offset == 19 ? .span(offset == 6 ? 3 : 2) : .cell)
+        }
+        
+        return SpanGrid(
+            dataSource: data,
+            columnSizeStrategy: .fixed(count: 4, width: 100, spacing: 0),
+            keyboardNavigationEnabled: true
+        ) { viewModel, metadata in
             Rectangle()
         }.keyboardNavigationCoordinator
     }

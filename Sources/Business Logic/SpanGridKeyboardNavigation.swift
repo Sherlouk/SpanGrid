@@ -79,7 +79,7 @@ class SpanGridKeyboardNavigation<Content: View, Data: Identifiable & SpanGridSiz
                 return
             }
             
-            guard let newItem = strongSelf.getItem(forSpanIndex: mutableSpanIndex, grid: grid) else {
+            guard let newItem = grid.spanIndexCalculator.reverseLookup[mutableSpanIndex] else {
                 return
             }
             
@@ -90,7 +90,7 @@ class SpanGridKeyboardNavigation<Content: View, Data: Identifiable & SpanGridSiz
     }
     
     func isInvalidCell(spanIndex: Int, columnCount: Int, grid: SpanGrid<Content, Data>) -> Bool {
-        guard let item = getItem(forSpanIndex: spanIndex, grid: grid) else {
+        guard let item = grid.spanIndexCalculator.reverseLookup[spanIndex] else {
             return false
         }
         
@@ -110,31 +110,5 @@ class SpanGridKeyboardNavigation<Content: View, Data: Identifiable & SpanGridSiz
         }
         
         return false
-    }
-    
-    func getItem(forSpanIndex mutableSpanIndex: Int, grid: SpanGrid<Content, Data>) -> Int? {
-        if mutableSpanIndex < 0 {
-            return nil
-        }
-        
-        #warning("Optimisation: Cache a dictionary of spanIndex: itemIndex for the full range of data?")
-        let spanCache = grid.spanIndexCalculator.cache.sorted(by: { $0.key < $1.key })
-        var lastItem: Int?
-        
-        for item in spanCache {
-            if item.value >= mutableSpanIndex {
-                let diff = item.value - mutableSpanIndex
-                
-                if diff > 0 {
-                    return lastItem ?? item.key
-                } else {
-                    return item.key
-                }
-            }
-            
-            lastItem = item.key
-        }
-        
-        return nil
     }
 }
