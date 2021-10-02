@@ -43,6 +43,16 @@ Options include:
 * `dynamic` (default) provides an opinionated column structure which adapts to the size of the device and includes some accessibility changes.
 * `custom` allows you to provide your own implementation. This will provide you with the current width of the grid. 
 
+### Keyboard Navigation (Opt-in)
+
+This allows users to navigate through rows/items using an attached keyboard (iPadOS).
+
+> Due to an Apple limitation, we currently use WASD keys rather than arrow keys. We hope this'll change in the future.
+
+When instantiating the SpanGrid, you can pass through keyboard navigation options which includes turning on the feature,
+as well as turning on/off keyboard discoverability and the localized strings shown to users (default English only strings 
+are provided).
+
 ## Notes
 
 I do not pledge to be an expert in SwiftUI, so there may be many issues with the current implementation. I have tested it

@@ -29,7 +29,7 @@ struct SpanGridKeyboardNavigationShortcuts: View {
             }
         }
         
-        func title(options: SpanGridKeyboardNavigationOptions) -> String {
+        func title(options: SpanGridKeyboardNavigationOptions) -> LocalizedStringKey {
             switch self {
             case .up: return options.localization.navigatePreviousRow
             case .left: return options.localization.navigatePreviousItem

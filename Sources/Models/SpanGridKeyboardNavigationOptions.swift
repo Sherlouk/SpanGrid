@@ -4,17 +4,22 @@
 // Copyright 2021 • James Sherlock
 //
 
-import Foundation
+import SwiftUI
 
 public struct SpanGridKeyboardNavigationOptions {
     public struct Localization {
-        public let navigatePreviousRow: String
-        public let navigatePreviousItem: String
+        public let navigatePreviousRow: LocalizedStringKey
+        public let navigatePreviousItem: LocalizedStringKey
         
-        public let navigateNextRow: String
-        public let navigateNextItem: String
+        public let navigateNextRow: LocalizedStringKey
+        public let navigateNextItem: LocalizedStringKey
         
-        public init(navigatePreviousRow: String, navigatePreviousItem: String, navigateNextRow: String, navigateNextItem: String) {
+        public init(
+            navigatePreviousRow: LocalizedStringKey,
+            navigatePreviousItem: LocalizedStringKey,
+            navigateNextRow: LocalizedStringKey,
+            navigateNextItem: LocalizedStringKey
+        ) {
             self.navigatePreviousRow = navigatePreviousRow
             self.navigatePreviousItem = navigatePreviousItem
             self.navigateNextRow = navigateNextRow
