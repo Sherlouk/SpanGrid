@@ -26,6 +26,11 @@ public struct SpanGridCellMetadata {
     
     /// The number of columns in the current layout.
     public let columnCount: Int
+    
+    /// Whether or not this cell is currently being highlighted by keyboard selection.
+    ///
+    /// This will always be `false` if you have keyboard selection disabled.
+    public let isHighlighted: Bool
 }
 
 public extension View {

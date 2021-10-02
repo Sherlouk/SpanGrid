@@ -10,7 +10,12 @@ internal class SpanGridSpanIndexCalculator<Content: View, Data: Identifiable & S
     var grid: SpanGrid<Content, Data>?
     
     var lastColumnCount: Int = -1
+    
+    // Maps cellIndex to spanIndex
     var cache: [Int: Int] = [:]
+    
+    // Maps spanIndex to cellIndex
+    var reverseLookup: [Int: Int] = [:]
     
     func precalculateSpanIndex(columnCount: Int) {
         guard cache.isEmpty || columnCount != lastColumnCount else {
@@ -29,13 +34,36 @@ internal class SpanGridSpanIndexCalculator<Content: View, Data: Identifiable & S
         var temporaryCache = [Int: Int]()
         temporaryCache.reserveCapacity(grid.data.count)
         
+        var reverseCache = [Int: Int]()
+        // reverseCache size will always be <= grid.data.count
+        reverseCache.reserveCapacity(grid.data.count)
+        
+        var lastPartial = 0
+        var lastCellIndex = 0
+        
         let totalSpanIndex: Int = grid.data.reduce(0) { partialResult, gridData in
+            // Populate any gaps in the reverse lookup cache.
+            // This is appropriate where the last cell had a span of more than 1.
+            (lastPartial ... partialResult).forEach {
+                reverseCache[$0] = lastCellIndex
+            }
+            
+            // Set cache results for this cell
             temporaryCache[gridData.cellIndex] = partialResult
+            reverseCache[partialResult] = gridData.cellIndex
+            
+            // Store current position for next loop cycle
+            lastPartial = partialResult
+            lastCellIndex = gridData.cellIndex
+            
             return accumulateSpanIndex(partialResult: partialResult, gridData: gridData, columnCount: columnCount)
         }
         
         temporaryCache[grid.data.count] = totalSpanIndex
+        reverseCache[totalSpanIndex] = grid.data.count
+        
         cache = temporaryCache
+        reverseLookup = reverseCache
     }
     
     func accumulateSpanIndex(partialResult: Int, gridData: SpanGridData<Data>, columnCount: Int) -> Int {

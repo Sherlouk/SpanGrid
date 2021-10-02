@@ -36,10 +36,14 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
     
     let spanIndexCalculator = SpanGridSpanIndexCalculator<Content, Data>()
     
+    let keyboardNavigationOptions: SpanGridKeyboardNavigationOptions
+    @ObservedObject var keyboardNavigationCoordinator = SpanGridKeyboardNavigation<Content, Data>()
+    
     public init(
         dataSource: [Data],
         columnSizeStrategy: SpanGridColumnSizeStrategy = .dynamicProvider(),
         rowSizeStrategy: SpanGridRowSizeStrategy = .none,
+        keyboardNavigationOptions: SpanGridKeyboardNavigationOptions = .init(),
         @ViewBuilder content: @escaping (Data, SpanGridCellMetadata) -> Content
     ) {
         data = (0 ..< dataSource.count).map {
@@ -50,20 +54,23 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
         
         self.columnSizeStrategy = columnSizeStrategy
         self.rowSizeStrategy = rowSizeStrategy
+        self.keyboardNavigationOptions = keyboardNavigationOptions
         
         spanIndexCalculator.grid = self
         rowHeightLookup.reserveCapacity(data.count)
+        
+        if keyboardNavigationOptions.enabled {
+            keyboardNavigationCoordinator.grid = self
+        }
     }
     
-    func calculateCellPrefix(forItem item: SpanGridData<Data>, columnCount: Int, spanIndex: Int) -> Int {
+    func calculateCellPrefix(spanSize: Int, columnCount: Int, spanIndex: Int) -> Int {
         if columnCount == 1 {
             // Optimisation: There will never be empty cells in a list (single column grid).
             return 0
         }
         
-        let desiredSpan = item.data.layoutSize.spanSize(columnCount: columnCount)
-        
-        if desiredSpan == 1 {
+        if spanSize == 1 {
             // Optimisation: No point running the maths if the span is a single cell.
             // It will never be prefixed by an empty cell.
             return 0
@@ -71,7 +78,7 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
         
         let spaceOnRow: Int = columnCount - (spanIndex % columnCount)
         
-        if desiredSpan > spaceOnRow {
+        if spanSize > spaceOnRow {
             return spaceOnRow
         }
         
@@ -141,7 +148,11 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
             .onReceive(sizeCategoryPublisher) { _ in rowHeightLookup = [:] }
             .onReceive(widthChangePublisher) { _ in rowHeightLookup = [:] }
             .overlay(SpanGridWidthListener(dynamicConfiguration: columnSizeStrategy.dynamicConfiguration)
-                        .allowsHitTesting(false))
+                .allowsHitTesting(false))
+            .overlay(SpanGridKeyboardNavigationShortcuts(
+                options: keyboardNavigationOptions,
+                callback: keyboardNavigationCoordinator.processDirection(columnSizeResult.columnCount)
+            ))
         }
     }
     
@@ -153,7 +164,7 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
         
         SpanGridSpanView(
             layoutSize: viewModel.data.layoutSize,
-            prefixSpace: calculateCellPrefix(forItem: viewModel, columnCount: columnCount, spanIndex: spanIndex),
+            prefixSpace: calculateCellPrefix(spanSize: spanSize, columnCount: columnCount, spanIndex: spanIndex),
             columnSizeResult: columnSizeResult
         ) { width in
             let rowOffset = spanIndex / columnSizeResult.columnCount
@@ -167,7 +178,8 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
                         rowOffset: rowOffset
                     )
                 ),
-                columnCount: columnSizeResult.columnCount
+                columnCount: columnSizeResult.columnCount,
+                isHighlighted: keyboardNavigationCoordinator.currentItem == viewModel.cellIndex
             )
             
             let view = content(viewModel.data, metadata)
