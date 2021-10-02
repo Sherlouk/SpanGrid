@@ -140,26 +140,24 @@ class SpanGridKeyboardNavigationTests: XCTestCase {
         }
     }
     
-    func testNavigatingThroughWhitespace() {
+    func testNavigatingThroughWhitespaceSingle() {
         do { // vertical navigation
-            XCTExpectFailure {
-                let coordinator = createComplexKeyboardCoordinator()
-                let process = coordinator.processDirection(3)
-                
-                process(.down)
-                process(.down)
-                process(.down)
-                process(.down)
-                process(.down) // fifth row
-                XCTAssertEqual(coordinator.currentItem, 11)
-                process(.right)
-                process(.right) // third column
-                XCTAssertEqual(coordinator.currentItem, 13)
-                process(.down) // through the whitespace
-                XCTAssertEqual(coordinator.currentItem, 17)
-                process(.up) // back up through the whitespace
-                XCTAssertEqual(coordinator.currentItem, 13)
-            }
+            let coordinator = createComplexKeyboardCoordinator()
+            let process = coordinator.processDirection(3)
+            
+            process(.down)
+            process(.down)
+            process(.down)
+            process(.down)
+            process(.down) // fifth row
+            XCTAssertEqual(coordinator.currentItem, 11)
+            process(.right)
+            process(.right) // third column
+            XCTAssertEqual(coordinator.currentItem, 13)
+            process(.down) // through the whitespace
+            XCTAssertEqual(coordinator.currentItem, 17)
+            process(.up) // back up through the whitespace
+            XCTAssertEqual(coordinator.currentItem, 13)
         }
         
         do { // horizontal navigation
@@ -230,7 +228,7 @@ class SpanGridKeyboardNavigationTests: XCTestCase {
             ],
             options: options
         ) {
-            // Sitting at around 2.2s
+            // 🚨 Was 2.2s, now 3.154s after keyboard navigation work (isInvalidCell)
             let coordinator = createKeyboardCoordinator(size: 100)
             coordinator.grid?.spanIndexCalculator.precalculateSpanIndex(columnCount: 3)
             let process = coordinator.processDirection(3)

@@ -66,9 +66,13 @@ class SpanGridKeyboardNavigation<Content: View, Data: Identifiable & SpanGridSiz
                 mutableSpanIndex += spanSize - spanIndexOffset + spanPrefix
                 
             case .up:
-                mutableSpanIndex -= columnCount
+                repeat {
+                    mutableSpanIndex -= columnCount
+                } while (strongSelf.isInvalidCell(spanIndex: mutableSpanIndex, columnCount: columnCount, grid: grid))
             case .down:
-                mutableSpanIndex += columnCount
+                repeat {
+                    mutableSpanIndex += columnCount
+                } while (strongSelf.isInvalidCell(spanIndex: mutableSpanIndex, columnCount: columnCount, grid: grid))
             }
             
             if mutableSpanIndex < 0 {
@@ -85,7 +89,34 @@ class SpanGridKeyboardNavigation<Content: View, Data: Identifiable & SpanGridSiz
         }
     }
     
+    func isInvalidCell(spanIndex: Int, columnCount: Int, grid: SpanGrid<Content, Data>) -> Bool {
+        guard let item = getItem(forSpanIndex: spanIndex, grid: grid) else {
+            return false
+        }
+        
+        guard (0 ..< grid.data.count).contains(item) else {
+            return false
+        }
+        
+        let spanSize = grid.data[item].data.layoutSize.spanSize(columnCount: columnCount)
+        
+        let originalSpanIndex = grid.spanIndexCalculator.getSpanIndex(forItemWithOffset: item, columnCount: columnCount)
+        let spanIndexOffset = spanIndex - originalSpanIndex
+        
+        let spanPrefix = grid.calculateCellPrefix(spanSize: spanSize, columnCount: columnCount, spanIndex: originalSpanIndex)
+        
+        if spanIndexOffset < spanPrefix {
+            return true
+        }
+        
+        return false
+    }
+    
     func getItem(forSpanIndex mutableSpanIndex: Int, grid: SpanGrid<Content, Data>) -> Int? {
+        if mutableSpanIndex < 0 {
+            return nil
+        }
+        
         #warning("Optimisation: Cache a dictionary of spanIndex: itemIndex for the full range of data?")
         let spanCache = grid.spanIndexCalculator.cache.sorted(by: { $0.key < $1.key })
         var lastItem: Int?
