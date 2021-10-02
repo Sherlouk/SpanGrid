@@ -251,7 +251,7 @@ class SpanGridKeyboardNavigationTests: XCTestCase {
         return SpanGrid(
             dataSource: data,
             columnSizeStrategy: .fixed(count: 3, width: 100, spacing: 0),
-            keyboardNavigationEnabled: true
+            keyboardNavigationOptions: .init(enabled: true)
         ) { _, _ in
             Rectangle()
         }.keyboardNavigationCoordinator
@@ -265,7 +265,7 @@ class SpanGridKeyboardNavigationTests: XCTestCase {
         return SpanGrid(
             dataSource: data,
             columnSizeStrategy: .fixed(count: 3, width: 100, spacing: 0),
-            keyboardNavigationEnabled: true
+            keyboardNavigationOptions: .init(enabled: true)
         ) { _, _ in
             Rectangle()
         }.keyboardNavigationCoordinator
@@ -279,7 +279,7 @@ class SpanGridKeyboardNavigationTests: XCTestCase {
         return SpanGrid(
             dataSource: data,
             columnSizeStrategy: .fixed(count: 4, width: 100, spacing: 0),
-            keyboardNavigationEnabled: true
+            keyboardNavigationOptions: .init(enabled: true)
         ) { _, _ in
             Rectangle()
         }.keyboardNavigationCoordinator
