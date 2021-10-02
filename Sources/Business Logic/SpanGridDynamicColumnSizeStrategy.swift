@@ -7,7 +7,6 @@
 import SwiftUI
 
 public struct SpanGridDynamicColumnSizeStrategy {
-    
     public struct Configuration {
         let maximumGridWidth: CGFloat
         let maximumGridWidthAccessibility: CGFloat

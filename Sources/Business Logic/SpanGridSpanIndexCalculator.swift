@@ -44,7 +44,7 @@ internal class SpanGridSpanIndexCalculator<Content: View, Data: Identifiable & S
         let totalSpanIndex: Int = grid.data.reduce(0) { partialResult, gridData in
             // Populate any gaps in the reverse lookup cache.
             // This is appropriate where the last cell had a span of more than 1.
-            (lastPartial...partialResult).forEach {
+            (lastPartial ... partialResult).forEach {
                 reverseCache[$0] = lastCellIndex
             }
             

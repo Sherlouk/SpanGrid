@@ -280,7 +280,7 @@ class SpanGridKeyboardNavigationTests: XCTestCase {
             dataSource: data,
             columnSizeStrategy: .fixed(count: 4, width: 100, spacing: 0),
             keyboardNavigationEnabled: true
-        ) { viewModel, metadata in
+        ) { _, _ in
             Rectangle()
         }.keyboardNavigationCoordinator
     }

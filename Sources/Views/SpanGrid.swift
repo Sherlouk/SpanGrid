@@ -35,13 +35,15 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
     let rowSizeStrategy: SpanGridRowSizeStrategy
     
     let spanIndexCalculator = SpanGridSpanIndexCalculator<Content, Data>()
+    
+    let keyboardNavigationOptions: SpanGridKeyboardNavigationOptions
     @ObservedObject var keyboardNavigationCoordinator = SpanGridKeyboardNavigation<Content, Data>()
     
     public init(
         dataSource: [Data],
         columnSizeStrategy: SpanGridColumnSizeStrategy = .dynamicProvider(),
         rowSizeStrategy: SpanGridRowSizeStrategy = .none,
-        keyboardNavigationEnabled: Bool = false,
+        keyboardNavigationOptions: SpanGridKeyboardNavigationOptions = .init(),
         @ViewBuilder content: @escaping (Data, SpanGridCellMetadata) -> Content
     ) {
         data = (0 ..< dataSource.count).map {
@@ -52,11 +54,12 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
         
         self.columnSizeStrategy = columnSizeStrategy
         self.rowSizeStrategy = rowSizeStrategy
+        self.keyboardNavigationOptions = keyboardNavigationOptions
         
         spanIndexCalculator.grid = self
         rowHeightLookup.reserveCapacity(data.count)
         
-        if keyboardNavigationEnabled {
+        if keyboardNavigationOptions.enabled {
             keyboardNavigationCoordinator.grid = self
         }
     }
@@ -145,9 +148,9 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
             .onReceive(sizeCategoryPublisher) { _ in rowHeightLookup = [:] }
             .onReceive(widthChangePublisher) { _ in rowHeightLookup = [:] }
             .overlay(SpanGridWidthListener(dynamicConfiguration: columnSizeStrategy.dynamicConfiguration)
-                        .allowsHitTesting(false))
+                .allowsHitTesting(false))
             .overlay(SpanGridKeyboardNavigationShortcuts(
-                enabled: keyboardNavigationCoordinator.grid != nil,
+                options: keyboardNavigationOptions,
                 callback: keyboardNavigationCoordinator.processDirection(columnSizeResult.columnCount)
             ))
         }

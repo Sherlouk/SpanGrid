@@ -17,7 +17,7 @@ public enum SpanGridColumnSizeStrategy {
         count: Int = 3,
         configuration: SpanGridDynamicColumnSizeStrategy.Configuration = .init()
     ) -> SpanGridColumnSizeStrategy {
-        return .dynamic(count: count, configuration: configuration)
+        .dynamic(count: count, configuration: configuration)
     }
     
     var dynamicConfiguration: SpanGridDynamicColumnSizeStrategy.Configuration? {

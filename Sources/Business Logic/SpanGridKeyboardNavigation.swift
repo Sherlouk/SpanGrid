@@ -51,7 +51,6 @@ class SpanGridKeyboardNavigation<Content: View, Data: Identifiable & SpanGridSiz
             let originalSpanIndex = grid.spanIndexCalculator.getSpanIndex(forItemWithOffset: currentItem, columnCount: columnCount)
             let spanIndexOffset = mutableSpanIndex - originalSpanIndex
             
-            #warning("Bug Fix: We need to take into account cell prefix size for whitespace")
             let spanPrefix = grid.calculateCellPrefix(spanSize: spanSize, columnCount: columnCount, spanIndex: mutableSpanIndex)
             
             switch direction {
@@ -68,11 +67,11 @@ class SpanGridKeyboardNavigation<Content: View, Data: Identifiable & SpanGridSiz
             case .up:
                 repeat {
                     mutableSpanIndex -= columnCount
-                } while (strongSelf.isInvalidCell(spanIndex: mutableSpanIndex, columnCount: columnCount, grid: grid))
+                } while strongSelf.isInvalidCell(spanIndex: mutableSpanIndex, columnCount: columnCount, grid: grid)
             case .down:
                 repeat {
                     mutableSpanIndex += columnCount
-                } while (strongSelf.isInvalidCell(spanIndex: mutableSpanIndex, columnCount: columnCount, grid: grid))
+                } while strongSelf.isInvalidCell(spanIndex: mutableSpanIndex, columnCount: columnCount, grid: grid)
             }
             
             if mutableSpanIndex < 0 {
