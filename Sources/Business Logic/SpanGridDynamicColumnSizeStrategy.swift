@@ -51,8 +51,9 @@ public struct SpanGridDynamicColumnSizeStrategy {
     
     func calculate(
         width: CGFloat,
-        traits: UITraitCollection
+        traits: SpanGridTraitCollection
     ) -> SpanGridColumnSizeResult {
+        #warning("TODO: Can we remove the use of horizontalSizeClass?")
         let compactLayout = traits.horizontalSizeClass == .compact
         
         let minimumGutter = compactLayout ? configuration.minimumGutterCompact : configuration.minimumGutterRegular
@@ -64,7 +65,7 @@ public struct SpanGridDynamicColumnSizeStrategy {
         let columnSqueezeCount = usableWidth / minimumTileWidth
         var targetColumnCount = max(min(floor(columnSqueezeCount), CGFloat(maximumColumnCount)), 1)
         
-        if traits.preferredContentSizeCategory.isAccessibilityCategory {
+        if traits.sizeCategory?.isAccessibilityCategory == true {
             targetColumnCount = 1
             usableWidth = min(usableWidth, configuration.maximumGridWidthAccessibility + minimumGutter)
         }

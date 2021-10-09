@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "161E77AE27120E130075E2DF"
-               BuildableName = "Span Grid.app"
+               BuildableName = "SpanGrid (tvOS).app"
                BlueprintName = "tvOS"
                ReferencedContainer = "container:SpanGridSample.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "161E77AE27120E130075E2DF"
-            BuildableName = "Span Grid.app"
+            BuildableName = "SpanGrid (tvOS).app"
             BlueprintName = "tvOS"
             ReferencedContainer = "container:SpanGridSample.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "161E77AE27120E130075E2DF"
-            BuildableName = "Span Grid.app"
+            BuildableName = "SpanGrid (tvOS).app"
             BlueprintName = "tvOS"
             ReferencedContainer = "container:SpanGridSample.xcodeproj">
          </BuildableReference>

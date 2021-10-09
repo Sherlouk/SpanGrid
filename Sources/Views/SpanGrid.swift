@@ -28,7 +28,9 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
      you introduce a race condition where sometimes the second update is not processed correctly and tiles have the
      incorrect size set.
      */
-    let sizeCategoryPublisher = NotificationCenter.default.publisher(for: UIContentSizeCategory.didChangeNotification)
+    #if os(iOS)
+        let sizeCategoryPublisher = NotificationCenter.default.publisher(for: UIContentSizeCategory.didChangeNotification)
+    #endif
     let widthChangePublisher = SpanGridWidthListener.publisher
     
     let data: [SpanGridData<Data>]
@@ -111,16 +113,22 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
         }
     }
     
-    internal func buildTraitCollection() -> UITraitCollection {
+    internal func buildTraitCollection() -> SpanGridTraitCollection {
         #if os(iOS)
-            .init(traitsFrom: [
-                .init(preferredContentSizeCategory: sizeCategory.uiKit),
-                .init(horizontalSizeClass: horizontalSizeClass == .regular ? .regular : .compact),
-            ])
+            SpanGridTraitCollection(
+                sizeCategory: sizeCategory.uiKit,
+                horizontalSizeClass: horizontalSizeClass == .regular ? .regular : .compact
+            )
+        #elseif os(tvOS)
+            SpanGridTraitCollection(
+                sizeCategory: sizeCategory.uiKit,
+                horizontalSizeClass: .regular
+            )
         #else
-            .init(traitsFrom: [
-                .init(preferredContentSizeCategory: sizeCategory.uiKit),
-            ])
+            SpanGridTraitCollection(
+                sizeCategory: nil,
+                horizontalSizeClass: .regular
+            )
         #endif
     }
     
@@ -156,10 +164,12 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
                 .padding(.vertical, verticalPadding)
             }
             .onPreferenceChange(SpanGridRowPreferenceKey.self) { newValue in rowHeightLookup = newValue }
-            .onReceive(sizeCategoryPublisher) { _ in rowHeightLookup = [:] }
+            #if os(iOS)
+                .onReceive(sizeCategoryPublisher) { _ in rowHeightLookup = [:] }
+            #endif
             .onReceive(widthChangePublisher) { _ in rowHeightLookup = [:] }
-            .overlay(SpanGridWidthListener(dynamicConfiguration: columnSizeStrategy.dynamicConfiguration)
-                .allowsHitTesting(false))
+                .overlay(SpanGridWidthListener(dynamicConfiguration: columnSizeStrategy.dynamicConfiguration)
+                    .allowsHitTesting(false))
             #if os(iOS)
                 .overlay(SpanGridKeyboardNavigationShortcuts(
                     options: keyboardNavigationOptions,

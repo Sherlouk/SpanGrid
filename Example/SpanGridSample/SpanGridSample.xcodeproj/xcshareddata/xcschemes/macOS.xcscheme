@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "161E77C627121CE00075E2DF"
-               BuildableName = "macOS.app"
+               BuildableName = "SpanGrid (macOS).app"
                BlueprintName = "macOS"
                ReferencedContainer = "container:SpanGridSample.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "161E77C627121CE00075E2DF"
-            BuildableName = "macOS.app"
+            BuildableName = "SpanGrid (macOS).app"
             BlueprintName = "macOS"
             ReferencedContainer = "container:SpanGridSample.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "161E77C627121CE00075E2DF"
-            BuildableName = "macOS.app"
+            BuildableName = "SpanGrid (macOS).app"
             BlueprintName = "macOS"
             ReferencedContainer = "container:SpanGridSample.xcodeproj">
          </BuildableReference>

@@ -4,59 +4,36 @@
 // Copyright 2021 • James Sherlock
 //
 
-import SwiftUI
+import Foundation
 
-internal struct SpanGridWidthListener: UIViewControllerRepresentable {
-    internal class ViewController: UIViewController {
-        var lastKnownSize: CGSize?
-        let dynamicConfiguration: SpanGridDynamicColumnSizeStrategy.Configuration?
-        
-        init(dynamicConfiguration: SpanGridDynamicColumnSizeStrategy.Configuration?) {
-            self.dynamicConfiguration = dynamicConfiguration
-            super.init(nibName: nil, bundle: nil)
-        }
-        
-        @available(*, unavailable)
-        required init?(coder _: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-        
-        var maxGridWidth: CGFloat {
-            if let dynamicConfiguration = dynamicConfiguration {
-                return dynamicConfiguration.maximumGridWidth + dynamicConfiguration.minimumGutterRegular
-            } else {
-                return 0
-            }
-        }
-        
-        override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-            super.viewWillTransition(to: size, with: coordinator)
-            
-            if let lastKnownWidth = lastKnownSize?.width, size.width != lastKnownWidth {
-                if lastKnownWidth <= maxGridWidth || lastKnownWidth <= size.width {
-                    print("[SpanGridWidthListener] Triggered.")
-                    NotificationCenter.default.post(name: SpanGridWidthListener.notificationName, object: nil)
-                } else {
-                    print("[SpanGridWidthListener] Out of Scope.")
-                }
-            } else {
-                print("[SpanGridWidthListener] No Change.")
-            }
-            
-            lastKnownSize = size
+// MARK: - SpanGridWidthListenerViewController
+
+protocol SpanGridWidthListenerViewController: AnyObject {
+    var lastKnownSize: CGSize? { get set }
+    var dynamicConfiguration: SpanGridDynamicColumnSizeStrategy.Configuration? { get }
+}
+
+extension SpanGridWidthListenerViewController {
+    func getMaxGridWidth() -> CGFloat {
+        if let dynamicConfiguration = dynamicConfiguration {
+            return dynamicConfiguration.maximumGridWidth + dynamicConfiguration.minimumGutterRegular
+        } else {
+            return 0
         }
     }
     
-    static var notificationName = Notification.Name(rawValue: "SpanGrid.SceneWidthChanged")
-    static var publisher: NotificationCenter.Publisher = NotificationCenter.default.publisher(for: notificationName)
+    func processNewSize(_ size: CGSize) {
+        if let lastKnownWidth = lastKnownSize?.width, size.width != lastKnownWidth {
+            if lastKnownWidth <= getMaxGridWidth() || lastKnownWidth <= size.width {
+                print("[SpanGridWidthListener] Triggered.")
+                NotificationCenter.default.post(name: SpanGridWidthListener.notificationName, object: nil)
+            } else {
+                print("[SpanGridWidthListener] Out of Scope.")
+            }
+        } else {
+            print("[SpanGridWidthListener] No Change.")
+        }
     
-    let dynamicConfiguration: SpanGridDynamicColumnSizeStrategy.Configuration?
-    
-    func makeUIViewController(context _: Context) -> some UIViewController {
-        ViewController(dynamicConfiguration: dynamicConfiguration)
-    }
-    
-    func updateUIViewController(_: UIViewControllerType, context _: Context) {
-        // Empty
+        lastKnownSize = size
     }
 }

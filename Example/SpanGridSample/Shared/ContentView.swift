@@ -7,6 +7,8 @@
 import SpanGrid
 import SwiftUI
 
+// MARK: - ContentView
+
 struct ContentView: View {
     let data = (0 ..< 30).map { offset -> ViewModel in
         ViewModel(id: offset, layoutSize: offset == 6 || offset == 19 ? .span(offset == 6 ? 3 : 2) : .cell)
@@ -14,6 +16,10 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
+            #if os(macOS)
+                Text("Sidebar")
+            #endif
+            
             SpanGrid(
                 dataSource: data,
                 keyboardNavigationOptions: .init(enabled: true, discoverabiliyEnabled: true)
@@ -29,8 +35,9 @@ struct ContentView: View {
     }
 }
 
+// MARK: - GridItem
+
 struct GridItem: View {
-    
     let metadata: SpanGridCellMetadata
     
     var body: some View {
