@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "167935E927089069004E102A"
-               BuildableName = "SpanGrid (iphoneos).app"
-               BlueprintName = "iOS"
+               BlueprintIdentifier = "161E77C627121CE00075E2DF"
+               BuildableName = "macOS.app"
+               BlueprintName = "macOS"
                ReferencedContainer = "container:SpanGridSample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -26,8 +26,7 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
    </TestAction>
@@ -45,9 +44,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "167935E927089069004E102A"
-            BuildableName = "SpanGrid (iphoneos).app"
-            BlueprintName = "iOS"
+            BlueprintIdentifier = "161E77C627121CE00075E2DF"
+            BuildableName = "macOS.app"
+            BlueprintName = "macOS"
             ReferencedContainer = "container:SpanGridSample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -62,9 +61,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "167935E927089069004E102A"
-            BuildableName = "SpanGrid (iphoneos).app"
-            BlueprintName = "iOS"
+            BlueprintIdentifier = "161E77C627121CE00075E2DF"
+            BuildableName = "macOS.app"
+            BlueprintName = "macOS"
             ReferencedContainer = "container:SpanGridSample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
