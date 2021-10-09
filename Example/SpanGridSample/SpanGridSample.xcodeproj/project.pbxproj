@@ -10,7 +10,6 @@
 		161E77B227120E130075E2DF /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161E77B127120E130075E2DF /* App.swift */; };
 		161E77B427120E130075E2DF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161E77B327120E130075E2DF /* ContentView.swift */; };
 		161E77B627120E150075E2DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 161E77B527120E150075E2DF /* Assets.xcassets */; };
-		161E77B927120E150075E2DF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 161E77B827120E150075E2DF /* Preview Assets.xcassets */; };
 		161E77BE27120E710075E2DF /* SpanGrid in Frameworks */ = {isa = PBXBuildFile; productRef = 161E77BD27120E710075E2DF /* SpanGrid */; };
 		161E77BF271212C00075E2DF /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161E77B127120E130075E2DF /* App.swift */; };
 		161E77C0271212CB0075E2DF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161E77B327120E130075E2DF /* ContentView.swift */; };
@@ -24,9 +23,7 @@
 		161E77B127120E130075E2DF /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		161E77B327120E130075E2DF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		161E77B527120E150075E2DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		161E77B827120E150075E2DF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		16202879270898A4005E82D1 /* SpanGridSample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SpanGridSample.entitlements; sourceTree = "<group>"; };
-		167935EA27089069004E102A /* SpanGridSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpanGridSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		167935EA27089069004E102A /* iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		167935F12708906B004E102A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		167935F42708906B004E102A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		167935FB2708911F004E102A /* SpanGrid */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SpanGrid; path = ../..; sourceTree = "<group>"; };
@@ -55,28 +52,36 @@
 		161E77B027120E130075E2DF /* tvOS */ = {
 			isa = PBXGroup;
 			children = (
-				161E77B127120E130075E2DF /* App.swift */,
-				161E77B327120E130075E2DF /* ContentView.swift */,
 				161E77B527120E150075E2DF /* Assets.xcassets */,
-				161E77B727120E150075E2DF /* Preview Content */,
 			);
 			path = tvOS;
 			sourceTree = "<group>";
 		};
-		161E77B727120E150075E2DF /* Preview Content */ = {
+		161E77C1271213910075E2DF /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				161E77B827120E150075E2DF /* Preview Assets.xcassets */,
+				161E77B127120E130075E2DF /* App.swift */,
+				161E77B327120E130075E2DF /* ContentView.swift */,
+				167935F32708906B004E102A /* Preview Content */,
 			);
-			path = "Preview Content";
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		161E77C2271213CF0075E2DF /* Targets */ = {
+			isa = PBXGroup;
+			children = (
+				167935EC27089069004E102A /* iOS */,
+				161E77B027120E130075E2DF /* tvOS */,
+			);
+			path = Targets;
 			sourceTree = "<group>";
 		};
 		167935E127089069004E102A = {
 			isa = PBXGroup;
 			children = (
 				167935FB2708911F004E102A /* SpanGrid */,
-				167935EC27089069004E102A /* SpanGridSample */,
-				161E77B027120E130075E2DF /* tvOS */,
+				161E77C1271213910075E2DF /* Shared */,
+				161E77C2271213CF0075E2DF /* Targets */,
 				167935EB27089069004E102A /* Products */,
 				167935FC270891E0004E102A /* Frameworks */,
 			);
@@ -85,20 +90,18 @@
 		167935EB27089069004E102A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				167935EA27089069004E102A /* SpanGridSample.app */,
+				167935EA27089069004E102A /* iOS.app */,
 				161E77AF27120E130075E2DF /* Span Grid.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		167935EC27089069004E102A /* SpanGridSample */ = {
+		167935EC27089069004E102A /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				16202879270898A4005E82D1 /* SpanGridSample.entitlements */,
 				167935F12708906B004E102A /* Assets.xcassets */,
-				167935F32708906B004E102A /* Preview Content */,
 			);
-			path = SpanGridSample;
+			path = iOS;
 			sourceTree = "<group>";
 		};
 		167935F32708906B004E102A /* Preview Content */ = {
@@ -139,9 +142,9 @@
 			productReference = 161E77AF27120E130075E2DF /* Span Grid.app */;
 			productType = "com.apple.product-type.application";
 		};
-		167935E927089069004E102A /* SpanGridSample */ = {
+		167935E927089069004E102A /* iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 167935F82708906B004E102A /* Build configuration list for PBXNativeTarget "SpanGridSample" */;
+			buildConfigurationList = 167935F82708906B004E102A /* Build configuration list for PBXNativeTarget "iOS" */;
 			buildPhases = (
 				167935E627089069004E102A /* Sources */,
 				167935E727089069004E102A /* Frameworks */,
@@ -151,12 +154,12 @@
 			);
 			dependencies = (
 			);
-			name = SpanGridSample;
+			name = iOS;
 			packageProductDependencies = (
 				167935FD270891E0004E102A /* SpanGrid */,
 			);
 			productName = SpanGridSample;
-			productReference = 167935EA27089069004E102A /* SpanGridSample.app */;
+			productReference = 167935EA27089069004E102A /* iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -190,7 +193,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				167935E927089069004E102A /* SpanGridSample */,
+				167935E927089069004E102A /* iOS */,
 				161E77AE27120E130075E2DF /* tvOS */,
 			);
 		};
@@ -201,7 +204,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				161E77B927120E150075E2DF /* Preview Assets.xcassets in Resources */,
 				161E77B627120E150075E2DF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -246,7 +248,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"tvOS/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Shared/Preview Content\"";
 				DEVELOPMENT_TEAM = LA6WV323US;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -274,7 +276,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"tvOS/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Shared/Preview Content\"";
 				DEVELOPMENT_TEAM = LA6WV323US;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -416,13 +418,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = SpanGridSample/SpanGridSample.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"SpanGridSample/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Shared/Preview Content\"";
 				DEVELOPMENT_TEAM = LA6WV323US;
+				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -433,8 +436,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = uk.sherlo.example.spangrid;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "uk.sherlo.example.span-grid.iOS";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = "uk.sherlo.example.span-grid.macOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -449,13 +453,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = SpanGridSample/SpanGridSample.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"SpanGridSample/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Shared/Preview Content\"";
 				DEVELOPMENT_TEAM = LA6WV323US;
+				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -466,8 +471,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = uk.sherlo.example.spangrid;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "uk.sherlo.example.span-grid.iOS";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = "uk.sherlo.example.span-grid.macOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -498,7 +504,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		167935F82708906B004E102A /* Build configuration list for PBXNativeTarget "SpanGridSample" */ = {
+		167935F82708906B004E102A /* Build configuration list for PBXNativeTarget "iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				167935F92708906B004E102A /* Debug */,

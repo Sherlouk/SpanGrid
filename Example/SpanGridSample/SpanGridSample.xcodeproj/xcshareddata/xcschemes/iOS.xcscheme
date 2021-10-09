@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "167935E927089069004E102A"
                BuildableName = "SpanGridSample.app"
-               BlueprintName = "SpanGridSample"
+               BlueprintName = "iOS"
                ReferencedContainer = "container:SpanGridSample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,7 +47,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "167935E927089069004E102A"
             BuildableName = "SpanGridSample.app"
-            BlueprintName = "SpanGridSample"
+            BlueprintName = "iOS"
             ReferencedContainer = "container:SpanGridSample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -64,7 +64,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "167935E927089069004E102A"
             BuildableName = "SpanGridSample.app"
-            BlueprintName = "SpanGridSample"
+            BlueprintName = "iOS"
             ReferencedContainer = "container:SpanGridSample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

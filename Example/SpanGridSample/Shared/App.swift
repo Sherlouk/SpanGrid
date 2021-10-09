@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct App: App {
+struct SpanGridApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
