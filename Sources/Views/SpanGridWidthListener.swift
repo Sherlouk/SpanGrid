@@ -4,7 +4,7 @@
 // Copyright 2021 • James Sherlock
 //
 
-import Foundation
+import SwiftUI
 
 // MARK: - SpanGridWidthListenerViewController
 

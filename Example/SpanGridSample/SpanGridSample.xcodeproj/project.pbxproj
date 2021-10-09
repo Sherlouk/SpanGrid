@@ -19,10 +19,60 @@
 		161E77D927121D470075E2DF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 167935F42708906B004E102A /* Preview Assets.xcassets */; };
 		161E77DA27121D470075E2DF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 167935F42708906B004E102A /* Preview Assets.xcassets */; };
 		161E77DD27121E2F0075E2DF /* SpanGrid in Frameworks */ = {isa = PBXBuildFile; productRef = 161E77DC27121E2F0075E2DF /* SpanGrid */; };
+		161E784D27124FBB0075E2DF /* SpanGrid (watchOS App).app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 161E784C27124FBB0075E2DF /* SpanGrid (watchOS App).app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		161E785227124FBD0075E2DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 161E785127124FBD0075E2DF /* Assets.xcassets */; };
+		161E785827124FBD0075E2DF /* SpanGrid (watchOS).appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 161E785727124FBD0075E2DF /* SpanGrid (watchOS).appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		161E786127124FBD0075E2DF /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161E786027124FBD0075E2DF /* ComplicationController.swift */; };
+		161E786327124FBE0075E2DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 161E786227124FBE0075E2DF /* Assets.xcassets */; };
+		161E7877271250060075E2DF /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161E77B127120E130075E2DF /* App.swift */; };
+		161E7878271250060075E2DF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161E77B327120E130075E2DF /* ContentView.swift */; };
+		161E787A271250290075E2DF /* SpanGrid in Frameworks */ = {isa = PBXBuildFile; productRef = 161E7879271250290075E2DF /* SpanGrid */; };
 		167935F22708906B004E102A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 167935F12708906B004E102A /* Assets.xcassets */; };
 		167935F52708906B004E102A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 167935F42708906B004E102A /* Preview Assets.xcassets */; };
 		167935FE270891E0004E102A /* SpanGrid in Frameworks */ = {isa = PBXBuildFile; productRef = 167935FD270891E0004E102A /* SpanGrid */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		161E784E27124FBB0075E2DF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 167935E227089069004E102A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 161E784B27124FBB0075E2DF;
+			remoteInfo = "watchOS WatchKit App";
+		};
+		161E785927124FBD0075E2DF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 167935E227089069004E102A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 161E785627124FBD0075E2DF;
+			remoteInfo = "watchOS WatchKit Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		161E786A27124FBE0075E2DF /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				161E784D27124FBB0075E2DF /* SpanGrid (watchOS App).app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		161E786D27124FBE0075E2DF /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				161E785827124FBD0075E2DF /* SpanGrid (watchOS).appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		161E77AF27120E130075E2DF /* SpanGrid (tvOS).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SpanGrid (tvOS).app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -32,6 +82,13 @@
 		161E77C727121CE00075E2DF /* SpanGrid (macOS).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SpanGrid (macOS).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		161E77CD27121CE20075E2DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		161E77D227121CE20075E2DF /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		161E784927124FBB0075E2DF /* watchOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = watchOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		161E784C27124FBB0075E2DF /* SpanGrid (watchOS App).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SpanGrid (watchOS App).app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		161E785127124FBD0075E2DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		161E785727124FBD0075E2DF /* SpanGrid (watchOS).appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SpanGrid (watchOS).appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		161E786027124FBD0075E2DF /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
+		161E786227124FBE0075E2DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		161E786727124FBE0075E2DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		167935EA27089069004E102A /* SpanGrid (iphoneos).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SpanGrid (iphoneos).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		167935F12708906B004E102A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		167935F42708906B004E102A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -52,6 +109,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				161E77DD27121E2F0075E2DF /* SpanGrid in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		161E785427124FBD0075E2DF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				161E787A271250290075E2DF /* SpanGrid in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +152,7 @@
 		161E77C2271213CF0075E2DF /* Targets */ = {
 			isa = PBXGroup;
 			children = (
+				161E787427124FED0075E2DF /* watchOS */,
 				161E77D627121CF00075E2DF /* macOS */,
 				167935EC27089069004E102A /* iOS */,
 				161E77B027120E130075E2DF /* tvOS */,
@@ -110,6 +176,33 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		161E787427124FED0075E2DF /* watchOS */ = {
+			isa = PBXGroup;
+			children = (
+				161E787527124FED0075E2DF /* Extension */,
+				161E787627124FED0075E2DF /* App */,
+			);
+			path = watchOS;
+			sourceTree = "<group>";
+		};
+		161E787527124FED0075E2DF /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				161E786727124FBE0075E2DF /* Info.plist */,
+				161E786027124FBD0075E2DF /* ComplicationController.swift */,
+				161E786227124FBE0075E2DF /* Assets.xcassets */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		161E787627124FED0075E2DF /* App */ = {
+			isa = PBXGroup;
+			children = (
+				161E785127124FBD0075E2DF /* Assets.xcassets */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
 		167935E127089069004E102A = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +220,9 @@
 				167935EA27089069004E102A /* SpanGrid (iphoneos).app */,
 				161E77AF27120E130075E2DF /* SpanGrid (tvOS).app */,
 				161E77C727121CE00075E2DF /* SpanGrid (macOS).app */,
+				161E784927124FBB0075E2DF /* watchOS.app */,
+				161E784C27124FBB0075E2DF /* SpanGrid (watchOS App).app */,
+				161E785727124FBD0075E2DF /* SpanGrid (watchOS).appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -190,6 +286,60 @@
 			productReference = 161E77C727121CE00075E2DF /* SpanGrid (macOS).app */;
 			productType = "com.apple.product-type.application";
 		};
+		161E784827124FBB0075E2DF /* watchOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 161E787227124FBE0075E2DF /* Build configuration list for PBXNativeTarget "watchOS" */;
+			buildPhases = (
+				161E784727124FBB0075E2DF /* Resources */,
+				161E786A27124FBE0075E2DF /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				161E784F27124FBB0075E2DF /* PBXTargetDependency */,
+			);
+			name = watchOS;
+			productName = watchOS;
+			productReference = 161E784927124FBB0075E2DF /* watchOS.app */;
+			productType = "com.apple.product-type.application.watchapp2-container";
+		};
+		161E784B27124FBB0075E2DF /* watchOS WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 161E787127124FBE0075E2DF /* Build configuration list for PBXNativeTarget "watchOS WatchKit App" */;
+			buildPhases = (
+				161E784A27124FBB0075E2DF /* Resources */,
+				161E786D27124FBE0075E2DF /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				161E785A27124FBD0075E2DF /* PBXTargetDependency */,
+			);
+			name = "watchOS WatchKit App";
+			productName = "watchOS WatchKit App";
+			productReference = 161E784C27124FBB0075E2DF /* SpanGrid (watchOS App).app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		161E785627124FBD0075E2DF /* watchOS WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 161E787027124FBE0075E2DF /* Build configuration list for PBXNativeTarget "watchOS WatchKit Extension" */;
+			buildPhases = (
+				161E785327124FBD0075E2DF /* Sources */,
+				161E785427124FBD0075E2DF /* Frameworks */,
+				161E785527124FBD0075E2DF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "watchOS WatchKit Extension";
+			packageProductDependencies = (
+				161E7879271250290075E2DF /* SpanGrid */,
+			);
+			productName = "watchOS WatchKit Extension";
+			productReference = 161E785727124FBD0075E2DF /* SpanGrid (watchOS).appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
 		167935E927089069004E102A /* iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 167935F82708906B004E102A /* Build configuration list for PBXNativeTarget "iOS" */;
@@ -226,6 +376,15 @@
 					161E77C627121CE00075E2DF = {
 						CreatedOnToolsVersion = 13.0;
 					};
+					161E784827124FBB0075E2DF = {
+						CreatedOnToolsVersion = 13.0;
+					};
+					161E784B27124FBB0075E2DF = {
+						CreatedOnToolsVersion = 13.0;
+					};
+					161E785627124FBD0075E2DF = {
+						CreatedOnToolsVersion = 13.0;
+					};
 					167935E927089069004E102A = {
 						CreatedOnToolsVersion = 13.0;
 					};
@@ -247,6 +406,9 @@
 				167935E927089069004E102A /* iOS */,
 				161E77AE27120E130075E2DF /* tvOS */,
 				161E77C627121CE00075E2DF /* macOS */,
+				161E784827124FBB0075E2DF /* watchOS */,
+				161E784B27124FBB0075E2DF /* watchOS WatchKit App */,
+				161E785627124FBD0075E2DF /* watchOS WatchKit Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -267,6 +429,29 @@
 			files = (
 				161E77DA27121D470075E2DF /* Preview Assets.xcassets in Resources */,
 				161E77CE27121CE20075E2DF /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		161E784727124FBB0075E2DF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		161E784A27124FBB0075E2DF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				161E785227124FBD0075E2DF /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		161E785527124FBD0075E2DF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				161E786327124FBE0075E2DF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +485,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		161E785327124FBD0075E2DF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				161E786127124FBD0075E2DF /* ComplicationController.swift in Sources */,
+				161E7877271250060075E2DF /* App.swift in Sources */,
+				161E7878271250060075E2DF /* ContentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		167935E627089069004E102A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -310,6 +505,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		161E784F27124FBB0075E2DF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 161E784B27124FBB0075E2DF /* watchOS WatchKit App */;
+			targetProxy = 161E784E27124FBB0075E2DF /* PBXContainerItemProxy */;
+		};
+		161E785A27124FBD0075E2DF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 161E785627124FBD0075E2DF /* watchOS WatchKit Extension */;
+			targetProxy = 161E785927124FBD0075E2DF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		161E77BB27120E150075E2DF /* Debug */ = {
@@ -421,6 +629,144 @@
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		161E786827124FBE0075E2DF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "uk.sherlo.example.span-grid.watchOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		161E786927124FBE0075E2DF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "uk.sherlo.example.span-grid.watchOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		161E786B27124FBE0075E2DF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IBSC_MODULE = watchOS_WatchKit_Extension;
+				INFOPLIST_KEY_CFBundleDisplayName = "watchOS WatchKit App";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "uk.sherlo.example.span-grid.watchOS.watchkitapp";
+				PRODUCT_MODULE_NAME = SpanGrid_watchOS;
+				PRODUCT_NAME = "SpanGrid (watchOS App)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+			};
+			name = Debug;
+		};
+		161E786C27124FBE0075E2DF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IBSC_MODULE = watchOS_WatchKit_Extension;
+				INFOPLIST_KEY_CFBundleDisplayName = "watchOS WatchKit App";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "uk.sherlo.example.span-grid.watchOS.watchkitapp";
+				PRODUCT_MODULE_NAME = SpanGrid_watchOS;
+				PRODUCT_NAME = "SpanGrid (watchOS App)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+			};
+			name = Release;
+		};
+		161E786E27124FBE0075E2DF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Shared/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Targets/watchOS/Extension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "watchOS WatchKit Extension";
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = "$(PRODUCT_MODULE_NAME).ComplicationController";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_WKWatchOnly = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "uk.sherlo.example.span-grid.watchOS.watchkitapp.watchkitextension";
+				PRODUCT_MODULE_NAME = SpanGrid_watchOS_Extension;
+				PRODUCT_NAME = "SpanGrid (watchOS)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+			};
+			name = Debug;
+		};
+		161E786F27124FBE0075E2DF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Shared/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Targets/watchOS/Extension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "watchOS WatchKit Extension";
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = "$(PRODUCT_MODULE_NAME).ComplicationController";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_WKWatchOnly = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "uk.sherlo.example.span-grid.watchOS.watchkitapp.watchkitextension";
+				PRODUCT_MODULE_NAME = SpanGrid_watchOS_Extension;
+				PRODUCT_NAME = "SpanGrid (watchOS)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Release;
 		};
@@ -637,6 +983,33 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		161E787027124FBE0075E2DF /* Build configuration list for PBXNativeTarget "watchOS WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				161E786E27124FBE0075E2DF /* Debug */,
+				161E786F27124FBE0075E2DF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		161E787127124FBE0075E2DF /* Build configuration list for PBXNativeTarget "watchOS WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				161E786B27124FBE0075E2DF /* Debug */,
+				161E786C27124FBE0075E2DF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		161E787227124FBE0075E2DF /* Build configuration list for PBXNativeTarget "watchOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				161E786827124FBE0075E2DF /* Debug */,
+				161E786927124FBE0075E2DF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		167935E527089069004E102A /* Build configuration list for PBXProject "SpanGridSample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -663,6 +1036,10 @@
 			productName = SpanGrid;
 		};
 		161E77DC27121E2F0075E2DF /* SpanGrid */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SpanGrid;
+		};
+		161E7879271250290075E2DF /* SpanGrid */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SpanGrid;
 		};

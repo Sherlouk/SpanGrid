@@ -9,6 +9,7 @@ let package = Package(
         .iOS(.v14),
         .tvOS(.v14),
         .macOS(.v11),
+        .watchOS(.v7),
     ],
     products: [
         .library(name: "SpanGrid", targets: ["SpanGrid"]),

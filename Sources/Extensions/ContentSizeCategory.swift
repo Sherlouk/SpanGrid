@@ -6,7 +6,7 @@
 
 import SwiftUI
 
-#if !os(OSX)
+#if !os(OSX) && !os(watchOS)
     extension ContentSizeCategory {
         var uiKit: UIContentSizeCategory {
             switch self {

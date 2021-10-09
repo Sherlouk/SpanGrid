@@ -8,6 +8,7 @@ import SwiftUI
 
 @available(iOS 14, *)
 @available(tvOS, unavailable)
+@available(watchOS, unavailable)
 struct SpanGridKeyboardNavigationShortcuts: View {
     enum Direction: CaseIterable {
         case up
