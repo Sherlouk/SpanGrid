@@ -13,19 +13,34 @@ struct ContentView: View {
     }
     
     var body: some View {
-        SpanGrid(
-            dataSource: data,
-            keyboardNavigationOptions: .init(enabled: true, discoverabiliyEnabled: true)
-        ) { _, metadata in
-            Rectangle()
-                .foregroundColor(metadata.isHighlighted ? .green : .red)
-                .frame(minHeight: 100)
-                .frame(cellMetadata: metadata)
+        NavigationView {
+            SpanGrid(
+                dataSource: data,
+                keyboardNavigationOptions: .init(enabled: true, discoverabiliyEnabled: true)
+            ) { _, metadata in
+                GridItem(metadata: metadata)
+            }
         }
     }
     
     struct ViewModel: Identifiable, SpanGridSizeInfoProvider {
         let id: Int
         let layoutSize: SpanGridLayoutSize
+    }
+}
+
+struct GridItem: View {
+    
+    let metadata: SpanGridCellMetadata
+    
+    var body: some View {
+        NavigationLink(destination: Text("Detail View")) {
+            Rectangle()
+                .foregroundColor(metadata.isHighlighted ? .green : .red)
+                .frame(minHeight: 100)
+                .frame(cellMetadata: metadata)
+                .focusable()
+        }
+        .buttonStyle(PlainButtonStyle())
     }
 }
