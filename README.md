@@ -9,6 +9,16 @@
 </picture>
 
 
+## Compatibility
+
+* Requires Xcode 13.
+* Supports:
+    * 📱 iOS 14
+    * 📺 tvOS 14
+    * ⌚️ watchOS 7
+    * 💻 macOS 11
+    * 🖥 macCatalyst 14
+
 ## Features
 
 ### Column Span
