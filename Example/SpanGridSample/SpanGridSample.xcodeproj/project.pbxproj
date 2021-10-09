@@ -19,11 +19,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		161E77AF27120E130075E2DF /* Span Grid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Span Grid.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		161E77AF27120E130075E2DF /* SpanGrid (appletvos).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SpanGrid (appletvos).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		161E77B127120E130075E2DF /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		161E77B327120E130075E2DF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		161E77B527120E150075E2DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		167935EA27089069004E102A /* iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		167935EA27089069004E102A /* SpanGrid (iphoneos).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SpanGrid (iphoneos).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		167935F12708906B004E102A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		167935F42708906B004E102A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		167935FB2708911F004E102A /* SpanGrid */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SpanGrid; path = ../..; sourceTree = "<group>"; };
@@ -90,8 +90,8 @@
 		167935EB27089069004E102A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				167935EA27089069004E102A /* iOS.app */,
-				161E77AF27120E130075E2DF /* Span Grid.app */,
+				167935EA27089069004E102A /* SpanGrid (iphoneos).app */,
+				161E77AF27120E130075E2DF /* SpanGrid (appletvos).app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -139,7 +139,7 @@
 				161E77BD27120E710075E2DF /* SpanGrid */,
 			);
 			productName = tvOS;
-			productReference = 161E77AF27120E130075E2DF /* Span Grid.app */;
+			productReference = 161E77AF27120E130075E2DF /* SpanGrid (appletvos).app */;
 			productType = "com.apple.product-type.application";
 		};
 		167935E927089069004E102A /* iOS */ = {
@@ -159,7 +159,7 @@
 				167935FD270891E0004E102A /* SpanGrid */,
 			);
 			productName = SpanGridSample;
-			productReference = 167935EA27089069004E102A /* iOS.app */;
+			productReference = 167935EA27089069004E102A /* SpanGrid (iphoneos).app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -260,7 +260,8 @@
 				);
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.sherlo.example.span-grid.tvOS";
-				PRODUCT_NAME = "Span Grid";
+				PRODUCT_MODULE_NAME = SpanGrid_tvOS;
+				PRODUCT_NAME = "SpanGrid ($PLATFORM_NAME)";
 				SDKROOT = appletvos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -288,7 +289,8 @@
 				);
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.sherlo.example.span-grid.tvOS";
-				PRODUCT_NAME = "Span Grid";
+				PRODUCT_MODULE_NAME = SpanGrid_tvOS;
+				PRODUCT_NAME = "SpanGrid ($PLATFORM_NAME)";
 				SDKROOT = appletvos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -439,7 +441,8 @@
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.sherlo.example.span-grid.iOS";
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = "uk.sherlo.example.span-grid.macOS";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_MODULE_NAME = SpanGrid_iOS;
+				PRODUCT_NAME = "SpanGrid ($PLATFORM_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -474,7 +477,8 @@
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.sherlo.example.span-grid.iOS";
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = "uk.sherlo.example.span-grid.macOS";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_MODULE_NAME = SpanGrid_iOS;
+				PRODUCT_NAME = "SpanGrid ($PLATFORM_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
