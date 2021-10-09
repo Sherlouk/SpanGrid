@@ -15,7 +15,7 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
     @Environment(\.sizeCategory) var sizeCategory
     
     #if os(iOS)
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+        @Environment(\.horizontalSizeClass) var horizontalSizeClass
     #endif
     
     @State private var rowHeightLookup: [Int: CGFloat] = [:]
@@ -113,14 +113,14 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
     
     internal func buildTraitCollection() -> UITraitCollection {
         #if os(iOS)
-        .init(traitsFrom: [
-            .init(preferredContentSizeCategory: sizeCategory.uiKit),
-            .init(horizontalSizeClass: horizontalSizeClass == .regular ? .regular : .compact),
-        ])
+            .init(traitsFrom: [
+                .init(preferredContentSizeCategory: sizeCategory.uiKit),
+                .init(horizontalSizeClass: horizontalSizeClass == .regular ? .regular : .compact),
+            ])
         #else
-        .init(traitsFrom: [
-            .init(preferredContentSizeCategory: sizeCategory.uiKit)
-        ])
+            .init(traitsFrom: [
+                .init(preferredContentSizeCategory: sizeCategory.uiKit),
+            ])
         #endif
     }
     
@@ -161,10 +161,10 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
             .overlay(SpanGridWidthListener(dynamicConfiguration: columnSizeStrategy.dynamicConfiguration)
                 .allowsHitTesting(false))
             #if os(iOS)
-            .overlay(SpanGridKeyboardNavigationShortcuts(
-                options: keyboardNavigationOptions,
-                callback: keyboardNavigationCoordinator.processDirection(columnSizeResult.columnCount)
-            ))
+                .overlay(SpanGridKeyboardNavigationShortcuts(
+                    options: keyboardNavigationOptions,
+                    callback: keyboardNavigationCoordinator.processDirection(columnSizeResult.columnCount)
+                ))
             #endif
         }
     }
