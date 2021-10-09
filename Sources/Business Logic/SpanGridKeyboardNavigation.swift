@@ -32,6 +32,7 @@ class SpanGridKeyboardNavigation<Content: View, Data: Identifiable & SpanGridSiz
         return true
     }
     
+    @available(tvOS, unavailable)
     func processDirection(_ columnCount: Int) -> (SpanGridKeyboardNavigationShortcuts.Direction) -> Void {
         { [weak self] direction in
             guard let strongSelf = self, let grid = strongSelf.grid else {

@@ -13,7 +13,10 @@ import SwiftUI
 /// Items can span a row (all columns), or a single tile (one column).
 public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvider>: View {
     @Environment(\.sizeCategory) var sizeCategory
+    
+    #if os(iOS)
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    #endif
     
     @State private var rowHeightLookup: [Int: CGFloat] = [:]
     
@@ -108,20 +111,24 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
         }
     }
     
-    public var body: some View {
-        #if !targetEnvironment(macCatalyst) && DEBUG
-            if #available(iOS 15.0, *) {
-                Self._printChanges()
-            }
+    internal func buildTraitCollection() -> UITraitCollection {
+        #if os(iOS)
+        .init(traitsFrom: [
+            .init(preferredContentSizeCategory: sizeCategory.uiKit),
+            .init(horizontalSizeClass: horizontalSizeClass == .regular ? .regular : .compact),
+        ])
+        #else
+        .init(traitsFrom: [
+            .init(preferredContentSizeCategory: sizeCategory.uiKit)
+        ])
         #endif
-        
-        return GeometryReader { proxy in
+    }
+    
+    public var body: some View {
+        GeometryReader { proxy in
             let columnSizeResult = columnSizeStrategy.calculateResult(
                 width: proxy.size.width,
-                traits: .init(traitsFrom: [
-                    .init(preferredContentSizeCategory: sizeCategory.uiKit),
-                    .init(horizontalSizeClass: horizontalSizeClass == .regular ? .regular : .compact),
-                ])
+                traits: buildTraitCollection()
             )
             
             let columns: [GridItem] = .init(
@@ -153,10 +160,12 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
             .onReceive(widthChangePublisher) { _ in rowHeightLookup = [:] }
             .overlay(SpanGridWidthListener(dynamicConfiguration: columnSizeStrategy.dynamicConfiguration)
                 .allowsHitTesting(false))
+            #if os(iOS)
             .overlay(SpanGridKeyboardNavigationShortcuts(
                 options: keyboardNavigationOptions,
                 callback: keyboardNavigationCoordinator.processDirection(columnSizeResult.columnCount)
             ))
+            #endif
         }
     }
     

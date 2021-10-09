@@ -1,7 +1,8 @@
 //
-// ContentView.swift
+//  ContentView.swift
+//  tvOS
 //
-// Copyright 2021 • James Sherlock
+//  Created by James Sherlock on 09/10/2021.
 //
 
 import SwiftUI

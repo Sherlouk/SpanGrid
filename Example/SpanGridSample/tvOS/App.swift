@@ -1,13 +1,14 @@
 //
-// SpanGridSampleApp.swift
+//  App.swift
+//  
 //
-// Copyright 2021 • James Sherlock
+//  Created by James Sherlock on 09/10/2021.
 //
 
 import SwiftUI
 
 @main
-struct SpanGridSampleApp: App {
+struct App: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
