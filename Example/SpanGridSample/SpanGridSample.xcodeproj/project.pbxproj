@@ -83,7 +83,6 @@
 				161E77C1271213910075E2DF /* Shared */,
 				161E77C2271213CF0075E2DF /* Targets */,
 				167935EB27089069004E102A /* Products */,
-				167935FC270891E0004E102A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -110,13 +109,6 @@
 				167935F42708906B004E102A /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		167935FC270891E0004E102A /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
