@@ -32,9 +32,6 @@ import SwiftUI
             }
         }
 
-        static var notificationName = Notification.Name(rawValue: "SpanGrid.SceneWidthChanged")
-        static var publisher: NotificationCenter.Publisher = NotificationCenter.default.publisher(for: notificationName)
-    
         let dynamicConfiguration: SpanGridDynamicColumnSizeStrategy.Configuration?
     
         func makeNSViewController(context _: Context) -> some NSViewController {

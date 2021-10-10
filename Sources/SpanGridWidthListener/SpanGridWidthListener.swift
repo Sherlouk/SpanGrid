@@ -26,7 +26,7 @@ extension SpanGridWidthListenerViewController {
         if let lastKnownWidth = lastKnownSize?.width, size.width != lastKnownWidth {
             if lastKnownWidth <= getMaxGridWidth() || lastKnownWidth <= size.width {
                 print("[SpanGridWidthListener] Triggered.")
-                NotificationCenter.default.post(name: SpanGridWidthListener.notificationName, object: nil)
+                NotificationCenter.default.post(name: SpanGridWidthListener.getPublisher().name, object: nil)
             } else {
                 print("[SpanGridWidthListener] Out of Scope.")
             }
@@ -35,5 +35,11 @@ extension SpanGridWidthListenerViewController {
         }
     
         lastKnownSize = size
+    }
+}
+
+extension SpanGridWidthListener {
+    static func getPublisher() -> NotificationCenter.Publisher {
+        NotificationCenter.default.publisher(for: Notification.Name(rawValue: "SpanGrid.SceneWidthChanged"))
     }
 }

@@ -31,7 +31,7 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
     #if os(iOS)
         let sizeCategoryPublisher = NotificationCenter.default.publisher(for: UIContentSizeCategory.didChangeNotification)
     #endif
-    let widthChangePublisher = SpanGridWidthListener.publisher
+    let widthChangePublisher = SpanGridWidthListener.getPublisher()
     
     let data: [SpanGridData<Data>]
     let content: (Data, SpanGridCellMetadata) -> Content
