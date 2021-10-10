@@ -22,9 +22,10 @@ struct ContentView: View {
             
             SpanGrid(
                 dataSource: data,
+                rowSizeStrategy: .largest,
                 keyboardNavigationOptions: .init(enabled: true, discoverabiliyEnabled: true)
-            ) { _, metadata in
-                GridItem(metadata: metadata)
+            ) { viewModel, metadata in
+                GridItem(viewModel: viewModel, metadata: metadata)
             }
         }
         #if os(iOS)
@@ -35,20 +36,29 @@ struct ContentView: View {
     struct ViewModel: Identifiable, SpanGridSizeInfoProvider {
         let id: Int
         let layoutSize: SpanGridLayoutSize
+        let randomHeight: CGFloat
+        
+        init(id: Int, layoutSize: SpanGridLayoutSize) {
+            self.id = id
+            self.layoutSize = layoutSize
+            randomHeight = .random(in: 50 ... 150)
+        }
     }
 }
 
 // MARK: - GridItem
 
 struct GridItem: View {
+    let viewModel: ContentView.ViewModel
     let metadata: SpanGridCellMetadata
     
     var body: some View {
         NavigationLink(destination: Text("Detail View")) {
             Rectangle()
-                .foregroundColor(metadata.isHighlighted ? .green : .red)
-                .frame(minHeight: 100)
+                .frame(minHeight: viewModel.randomHeight)
                 .frame(cellMetadata: metadata)
+                .foregroundColor(metadata.isHighlighted ? .green : .red)
+                .overlay(Text("\(Int(viewModel.randomHeight))"))
             #if os(tvOS) || os(watchOS)
                 .focusable()
             #endif

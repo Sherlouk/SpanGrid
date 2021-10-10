@@ -43,6 +43,20 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
     @ObservedObject var keyboardNavigationCoordinator = SpanGridKeyboardNavigation<Content, Data>()
     @ObservedObject var rowHeightStorage: SpanGridRowHeightStorage
     
+    let widthChangePublisher = SpanGridWidthListener.getPublisher()
+    
+    /*
+     We use a publisher to detect a change in size category in order to reset the row height cache.
+     This is important as the publisher is triggered at the same time as the environment variable changes.
+     
+     If you detect a change in the environment, and then reset the row height, you refresh the view twice and in that
+     you introduce a race condition where sometimes the second update is not processed correctly and tiles have the
+     incorrect size set.
+     */
+    #if os(iOS)
+    let sizeCategoryPublisher = NotificationCenter.default.publisher(for: UIContentSizeCategory.didChangeNotification)
+    #endif
+    
     public init(
         dataSource: [Data],
         columnSizeStrategy: SpanGridColumnSizeStrategy = .dynamicProvider(),
@@ -102,7 +116,11 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
                 }
                 .padding(.vertical, verticalPadding)
             }
-            .overlay(SpanGridRowHeightMonitor(rowHeightStorage: rowHeightStorage))
+            .onPreferenceChange(SpanGridRowPreferenceKey.self, perform: rowHeightStorage.set)
+            .onReceive(widthChangePublisher) { _ in rowHeightStorage.clear() }
+            #if os(iOS)
+                .onReceive(sizeCategoryPublisher) { _ in rowHeightStorage.clear() }
+            #endif
             .overlay(SpanGridWidthListener(dynamicConfiguration: columnSizeStrategy.dynamicConfiguration)
                 .allowsHitTesting(false))
             #if os(iOS)
