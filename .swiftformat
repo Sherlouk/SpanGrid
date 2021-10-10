@@ -1,6 +1,7 @@
 --patternlet inline
 --swiftversion 5.5
 --trimwhitespace nonblank-lines
+--ifdef no-indent
 
 --disable spaceInsideBrackets
 

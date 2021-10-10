@@ -17,7 +17,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             #if os(macOS)
-                Text("Sidebar")
+            Text("Sidebar")
             #endif
             
             SpanGrid(

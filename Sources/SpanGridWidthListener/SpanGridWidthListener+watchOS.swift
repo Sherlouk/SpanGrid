@@ -7,11 +7,11 @@
 import SwiftUI
 
 #if os(watchOS)
-    internal struct SpanGridWidthListener: View {
-        let dynamicConfiguration: SpanGridDynamicColumnSizeStrategy.Configuration?
+internal struct SpanGridWidthListener: View {
+    let dynamicConfiguration: SpanGridDynamicColumnSizeStrategy.Configuration?
         
-        var body: some View {
-            EmptyView()
-        }
+    var body: some View {
+        EmptyView()
     }
+}
 #endif

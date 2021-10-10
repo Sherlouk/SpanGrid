@@ -15,7 +15,7 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
     @Environment(\.sizeCategory) var sizeCategory
     
     #if os(iOS)
-        @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     #endif
     
     @State private var rowHeightLookup: [Int: CGFloat] = [:]
@@ -29,7 +29,7 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
      incorrect size set.
      */
     #if os(iOS)
-        let sizeCategoryPublisher = NotificationCenter.default.publisher(for: UIContentSizeCategory.didChangeNotification)
+    let sizeCategoryPublisher = NotificationCenter.default.publisher(for: UIContentSizeCategory.didChangeNotification)
     #endif
     let widthChangePublisher = SpanGridWidthListener.getPublisher()
     
@@ -115,20 +115,20 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
     
     internal func buildTraitCollection() -> SpanGridTraitCollection {
         #if os(iOS)
-            SpanGridTraitCollection(
-                sizeCategory: sizeCategory,
-                horizontalSizeClass: horizontalSizeClass == .regular ? .regular : .compact
-            )
+        SpanGridTraitCollection(
+            sizeCategory: sizeCategory,
+            horizontalSizeClass: horizontalSizeClass == .regular ? .regular : .compact
+        )
         #elseif os(tvOS)
-            SpanGridTraitCollection(
-                sizeCategory: sizeCategory,
-                horizontalSizeClass: .regular
-            )
+        SpanGridTraitCollection(
+            sizeCategory: sizeCategory,
+            horizontalSizeClass: .regular
+        )
         #else
-            SpanGridTraitCollection(
-                sizeCategory: nil,
-                horizontalSizeClass: .regular
-            )
+        SpanGridTraitCollection(
+            sizeCategory: nil,
+            horizontalSizeClass: .regular
+        )
         #endif
     }
     
