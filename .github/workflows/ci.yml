@@ -7,11 +7,18 @@ env:
 
 jobs:
   test:
-    name: Test on ${{ matrix.platform }}
+    name: Test on iOS
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make ios
+
+  build:
+    name: Build on ${{ matrix.platform }}
     runs-on: macos-latest
     strategy:
       matrix:
-        platform: ["ios", "macos", "watchos", "tvos", "catalyst"]
+        platform: ["macos", "watchos", "tvos", "catalyst"]
       fail-fast: false
     steps:
       - uses: actions/checkout@v2
