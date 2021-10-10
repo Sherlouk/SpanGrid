@@ -63,7 +63,7 @@ class SpanGridKeyboardNavigation<Content: View, Data: Identifiable & SpanGridSiz
             let originalSpanIndex = grid.spanIndexCalculator.getSpanIndex(forItemWithOffset: currentItem, columnCount: columnCount)
             let spanIndexOffset = mutableSpanIndex - originalSpanIndex
             
-            let spanPrefix = grid.calculateCellPrefix(
+            let spanPrefix = grid.spanIndexCalculator.calculateCellPrefix(
                 spanSize: spanSize,
                 columnCount: columnCount,
                 spanIndex: direction == .left ? mutableSpanIndex : originalSpanIndex
@@ -122,7 +122,7 @@ class SpanGridKeyboardNavigation<Content: View, Data: Identifiable & SpanGridSiz
         let originalSpanIndex = grid.spanIndexCalculator.getSpanIndex(forItemWithOffset: item, columnCount: columnCount)
         let spanIndexOffset = spanIndex - originalSpanIndex
         
-        let spanPrefix = grid.calculateCellPrefix(spanSize: spanSize, columnCount: columnCount, spanIndex: originalSpanIndex)
+        let spanPrefix = grid.spanIndexCalculator.calculateCellPrefix(spanSize: spanSize, columnCount: columnCount, spanIndex: originalSpanIndex)
         
         if spanIndexOffset < spanPrefix {
             return true

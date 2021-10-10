@@ -103,4 +103,25 @@ internal class SpanGridSpanIndexCalculator<Content: View, Data: Identifiable & S
             accumulateSpanIndex(partialResult: partialResult, gridData: gridData, columnCount: columnCount)
         }
     }
+    
+    func calculateCellPrefix(spanSize: Int, columnCount: Int, spanIndex: Int) -> Int {
+        if columnCount == 1 {
+            // Optimisation: There will never be empty cells in a list (single column grid).
+            return 0
+        }
+        
+        if spanSize == 1 {
+            // Optimisation: No point running the maths if the span is a single cell.
+            // It will never be prefixed by an empty cell.
+            return 0
+        }
+        
+        let spaceOnRow: Int = columnCount - (spanIndex % columnCount)
+        
+        if spanSize > spaceOnRow {
+            return spaceOnRow
+        }
+        
+        return 0
+    }
 }

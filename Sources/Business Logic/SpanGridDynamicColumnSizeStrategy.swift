@@ -53,7 +53,6 @@ public struct SpanGridDynamicColumnSizeStrategy {
         width: CGFloat,
         traits: SpanGridTraitCollection
     ) -> SpanGridColumnSizeResult {
-        #warning("TODO: Can we remove the use of horizontalSizeClass?")
         let compactLayout = traits.horizontalSizeClass == .compact
         
         let minimumGutter = compactLayout ? configuration.minimumGutterCompact : configuration.minimumGutterRegular
