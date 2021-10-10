@@ -4,11 +4,11 @@ on: [push]
 jobs:
   test:
     name: Test on ${{ matrix.platform }}
+    runs-on: macos-latest
     strategy:
       matrix:
         platform: ["ios", "macos", "watchos", "tvos", "catalyst"]
-    runs-on: macos-latest
+      fail-fast: false
     steps:
       - uses: actions/checkout@v2
-      - name: "Test"
-        run: make ${{ matrix.platform }}
+      - run: make ${{ matrix.platform }}
