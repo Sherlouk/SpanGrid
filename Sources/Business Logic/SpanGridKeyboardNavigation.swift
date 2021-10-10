@@ -4,27 +4,29 @@
 // Copyright 2021 • James Sherlock
 //
 
+import Logging
 import SwiftUI
 
 class SpanGridKeyboardNavigation<Content: View, Data: Identifiable & SpanGridSizeInfoProvider>: ObservableObject {
     @Published var currentItem: Int? = nil
     
+    let logger = Logger(label: "uk.sherlo.spangrid.keyboard-navigation")
     var grid: SpanGrid<Content, Data>?
     private var currentSpanIndex: Int = 0
     
     func setCurrentItem(newValue: Int) -> Bool {
         guard let grid = grid else {
-            // Lost grid reference
+            logger.error("Lost grid reference, ignoring.", metadata: [ "value": .stringConvertible(newValue) ])
             return false
         }
         
         guard (0 ..< grid.data.count).contains(newValue) else {
-            // Out of bounds
+            logger.info("Value out of bounds, ignoring.", metadata: [ "value": .stringConvertible(newValue) ])
             return false
         }
         
         guard newValue != currentItem else {
-            // No change in value
+            logger.trace("No change in value, ignoring.", metadata: [ "value": .stringConvertible(newValue) ])
             return false
         }
         
@@ -36,15 +38,23 @@ class SpanGridKeyboardNavigation<Content: View, Data: Identifiable & SpanGridSiz
     @available(watchOS, unavailable)
     func processDirection(_ columnCount: Int) -> (SpanGridKeyboardNavigationShortcuts.Direction) -> Void {
         { [weak self] direction in
-            guard let strongSelf = self, let grid = strongSelf.grid else {
+            guard let strongSelf = self else {
+                return
+            }
+            
+            guard let grid = strongSelf.grid else {
+                strongSelf.logger.error("Tried to process direction without setting `grid`.")
                 return
             }
             
             // If this is the first time they've pressed a shortcut, then we start them in the top left.
             if strongSelf.currentItem == nil {
+                strongSelf.logger.trace("First input, setting to first item.")
                 _ = strongSelf.setCurrentItem(newValue: 0)
                 return
             }
+            
+            strongSelf.logger.trace("Handling '\(direction.rawValue)' keyboard input")
             
             let currentItem = strongSelf.currentItem ?? 0
             var mutableSpanIndex = strongSelf.currentSpanIndex
@@ -81,11 +91,12 @@ class SpanGridKeyboardNavigation<Content: View, Data: Identifiable & SpanGridSiz
             }
             
             if mutableSpanIndex < 0 {
+                strongSelf.logger.trace("Direction puts selection out of bounds, ignoring.")
                 return
             }
             
             guard let newItem = grid.spanIndexCalculator.reverseLookup[mutableSpanIndex] else {
-                print("[SpanGridKeyboardNavigation] Unknown Span Index: \(mutableSpanIndex)")
+                strongSelf.logger.error("Unknown span index, ignoring. Input: '\(mutableSpanIndex)'.")
                 return
             }
             
@@ -97,10 +108,12 @@ class SpanGridKeyboardNavigation<Content: View, Data: Identifiable & SpanGridSiz
     
     func isInvalidCell(spanIndex: Int, columnCount: Int, grid: SpanGrid<Content, Data>) -> Bool {
         guard let item = grid.spanIndexCalculator.reverseLookup[spanIndex] else {
+            logger.error("Unknown span index, ignoring. Input: '\(spanIndex)'.")
             return false
         }
         
         guard (0 ..< grid.data.count).contains(item) else {
+            logger.trace("Span index places item out of bounds, ignoring. Input: '\(spanIndex)=\(item)'.")
             return false
         }
         

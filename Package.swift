@@ -17,10 +17,16 @@ let package = Package(
     dependencies: [
         .package(name: "SnapshotTesting",
                  url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.9.0"),
+        
+        .package(name: "swift-log",
+                 url: "https://github.com/apple/swift-log.git", from: "1.4.2"),
     ],
     targets: [
         .target(
             name: "SpanGrid",
+            dependencies: [
+                .product(name: "Logging", package: "swift-log"),
+            ],
             path: "Sources"
         ),
         .testTarget(

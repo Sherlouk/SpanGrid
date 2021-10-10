@@ -116,12 +116,12 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
     internal func buildTraitCollection() -> SpanGridTraitCollection {
         #if os(iOS)
             SpanGridTraitCollection(
-                sizeCategory: sizeCategory.uiKit,
+                sizeCategory: sizeCategory,
                 horizontalSizeClass: horizontalSizeClass == .regular ? .regular : .compact
             )
         #elseif os(tvOS)
             SpanGridTraitCollection(
-                sizeCategory: sizeCategory.uiKit,
+                sizeCategory: sizeCategory,
                 horizontalSizeClass: .regular
             )
         #else

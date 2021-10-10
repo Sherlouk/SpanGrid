@@ -4,11 +4,13 @@
 // Copyright 2021 • James Sherlock
 //
 
+import Logging
 import SwiftUI
 
 #if os(OSX)
     internal struct SpanGridWidthListener: NSViewControllerRepresentable {
         internal class ViewController: NSViewController, SpanGridWidthListenerViewController {
+            let logger = Logger(label: "uk.sherlo.spangrid.width-listener")
             var lastKnownSize: CGSize?
             let dynamicConfiguration: SpanGridDynamicColumnSizeStrategy.Configuration?
         

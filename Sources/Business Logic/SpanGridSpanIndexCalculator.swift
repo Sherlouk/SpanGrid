@@ -4,9 +4,11 @@
 // Copyright 2021 • James Sherlock
 //
 
+import Logging
 import SwiftUI
 
 internal class SpanGridSpanIndexCalculator<Content: View, Data: Identifiable & SpanGridSizeInfoProvider> {
+    let logger = Logger(label: "uk.sherlo.spangrid.span-index-calculator")
     var grid: SpanGrid<Content, Data>?
     
     var lastColumnCount: Int = -1
@@ -23,7 +25,8 @@ internal class SpanGridSpanIndexCalculator<Content: View, Data: Identifiable & S
         }
         
         if columnCount != lastColumnCount {
-            print("[SpanIndexCalculator] Recalculating Cache")
+            logger.info("Recalculating cache due to column count changing.",
+                        metadata: [ "columns": .stringConvertible(columnCount) ])
             lastColumnCount = columnCount
         }
         
@@ -94,7 +97,7 @@ internal class SpanGridSpanIndexCalculator<Content: View, Data: Identifiable & S
             fatalError("Grid not provided to SpanIndexCalculator")
         }
         
-        print("[SpanIndexCalculator] Cache was missed, calculating on the fly.")
+        logger.warning("Cache was missed, calculating on the fly.")
         
         return grid.data.prefix(offset).reduce(0) { partialResult, gridData in
             accumulateSpanIndex(partialResult: partialResult, gridData: gridData, columnCount: columnCount)

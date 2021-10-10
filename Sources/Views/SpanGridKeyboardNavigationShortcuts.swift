@@ -10,7 +10,7 @@ import SwiftUI
 @available(tvOS, unavailable)
 @available(watchOS, unavailable)
 struct SpanGridKeyboardNavigationShortcuts: View {
-    enum Direction: CaseIterable {
+    enum Direction: String, CaseIterable {
         case up
         case down
         case left

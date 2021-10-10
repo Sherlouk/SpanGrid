@@ -27,6 +27,9 @@ struct ContentView: View {
                 GridItem(metadata: metadata)
             }
         }
+        #if os(iOS)
+            .navigationViewStyle(.stack)
+        #endif
     }
     
     struct ViewModel: Identifiable, SpanGridSizeInfoProvider {
@@ -46,7 +49,9 @@ struct GridItem: View {
                 .foregroundColor(metadata.isHighlighted ? .green : .red)
                 .frame(minHeight: 100)
                 .frame(cellMetadata: metadata)
+            #if os(tvOS) || os(watchOS)
                 .focusable()
+            #endif
         }
         .buttonStyle(PlainButtonStyle())
     }
