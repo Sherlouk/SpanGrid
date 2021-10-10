@@ -6,8 +6,11 @@
 
 import SwiftUI
 
+@available(iOS 14, *)
+@available(tvOS, unavailable)
+@available(watchOS, unavailable)
 struct SpanGridKeyboardNavigationShortcuts: View {
-    enum Direction: CaseIterable {
+    enum Direction: String, CaseIterable {
         case up
         case down
         case left
@@ -21,6 +24,9 @@ struct SpanGridKeyboardNavigationShortcuts: View {
             // - https://www.reddit.com/r/SwiftUI/comments/lj1pj5/arrow_keys_in_swiftui_does_not_seem_to_work_on/
             // - https://stackoverflow.com/questions/65584926/swiftui-keyboardshortcut-with-arrow-keys
             // - My own testing (both Simulator and Physical Device)
+            //
+            // Feedback: FB9675753 - Arrow keys do not work as keyboardShortcut on iPadOS
+            
             switch self {
             case .up: return "w"
             case .left: return "a"
@@ -54,6 +60,12 @@ struct SpanGridKeyboardNavigationShortcuts: View {
     }
     
     @ViewBuilder func createButton(direction: Direction) -> some View {
+        // There is not currently a fantastic way to disable discoverability, but I have discovered that adding a
+        // shortcut to an EmptyView (or any non-text view) will result in no value being added to discoverability
+        // on iPadOS.
+        //
+        // Feedback: FB9675764 - Add iPadOS discoverability title override to keyboardShortcut
+        
         if options.discoverabilityEnabled {
             Button(direction.title(options: options)) { callback(direction) }
                 .keyboardShortcut(direction.shortcut, modifiers: [])

@@ -4,9 +4,11 @@
 // Copyright 2021 • James Sherlock
 //
 
+import Logging
 import SwiftUI
 
 internal class SpanGridSpanIndexCalculator<Content: View, Data: Identifiable & SpanGridSizeInfoProvider> {
+    let logger = Logger(label: "uk.sherlo.spangrid.span-index-calculator")
     var grid: SpanGrid<Content, Data>?
     
     var lastColumnCount: Int = -1
@@ -23,7 +25,8 @@ internal class SpanGridSpanIndexCalculator<Content: View, Data: Identifiable & S
         }
         
         if columnCount != lastColumnCount {
-            print("[SpanIndexCalculator] Recalculating Cache")
+            logger.info("Recalculating cache due to column count changing.",
+                        metadata: [ "columns": .stringConvertible(columnCount) ])
             lastColumnCount = columnCount
         }
         
@@ -94,10 +97,31 @@ internal class SpanGridSpanIndexCalculator<Content: View, Data: Identifiable & S
             fatalError("Grid not provided to SpanIndexCalculator")
         }
         
-        print("[SpanIndexCalculator] Cache was missed, calculating on the fly.")
+        logger.warning("Cache was missed, calculating on the fly.")
         
         return grid.data.prefix(offset).reduce(0) { partialResult, gridData in
             accumulateSpanIndex(partialResult: partialResult, gridData: gridData, columnCount: columnCount)
         }
+    }
+    
+    func calculateCellPrefix(spanSize: Int, columnCount: Int, spanIndex: Int) -> Int {
+        if columnCount == 1 {
+            // Optimisation: There will never be empty cells in a list (single column grid).
+            return 0
+        }
+        
+        if spanSize == 1 {
+            // Optimisation: No point running the maths if the span is a single cell.
+            // It will never be prefixed by an empty cell.
+            return 0
+        }
+        
+        let spaceOnRow: Int = columnCount - (spanIndex % columnCount)
+        
+        if spanSize > spaceOnRow {
+            return spaceOnRow
+        }
+        
+        return 0
     }
 }

@@ -14,7 +14,7 @@ class SpanGridWidthListenerTests: XCTestCase {
         let viewController = SpanGridWidthListener.ViewController(dynamicConfiguration: nil)
         viewController.lastKnownSize = CGSize(width: 100, height: 120)
         
-        let exp = expectation(forNotification: SpanGridWidthListener.notificationName, object: nil, handler: nil)
+        let exp = expectation(forNotification: SpanGridWidthListener.getPublisher().name, object: nil, handler: nil)
         exp.assertForOverFulfill = true
         exp.expectedFulfillmentCount = 1
         
@@ -29,7 +29,7 @@ class SpanGridWidthListenerTests: XCTestCase {
         let viewController = SpanGridWidthListener.ViewController(dynamicConfiguration: nil)
         viewController.lastKnownSize = CGSize(width: 2000, height: 120)
         
-        let exp = expectation(forNotification: SpanGridWidthListener.notificationName, object: nil, handler: nil)
+        let exp = expectation(forNotification: SpanGridWidthListener.getPublisher().name, object: nil, handler: nil)
         exp.assertForOverFulfill = true
         exp.expectedFulfillmentCount = 2
         
@@ -51,7 +51,7 @@ class SpanGridWidthListenerTests: XCTestCase {
         let viewController = SpanGridWidthListener.ViewController(dynamicConfiguration: nil)
         viewController.lastKnownSize = CGSize(width: 100, height: 120)
         
-        let exp = expectation(forNotification: SpanGridWidthListener.notificationName, object: nil, handler: nil)
+        let exp = expectation(forNotification: SpanGridWidthListener.getPublisher().name, object: nil, handler: nil)
         exp.isInverted = true
         
         viewController.viewWillTransition(to: CGSize(width: 100, height: 130), with: mockCoordinator)

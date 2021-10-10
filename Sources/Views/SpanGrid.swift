@@ -13,9 +13,37 @@ import SwiftUI
 /// Items can span a row (all columns), or a single tile (one column).
 public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvider>: View {
     @Environment(\.sizeCategory) var sizeCategory
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
-    @State private var rowHeightLookup: [Int: CGFloat] = [:]
+    #if os(iOS)
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    #endif
+    
+    /// An array containing all of the data for the grid.
+    let data: [SpanGridData<Data>]
+    
+    /// A closure which produces a SwiftUI view for every piece of data within the grid.
+    let content: (Data, SpanGridCellMetadata) -> Content
+    
+    /// Defines how to calculate column widths for the grid.
+    let columnSizeStrategy: SpanGridColumnSizeStrategy
+    
+    /// Defines how to calculate row heights for the grid.
+    let rowSizeStrategy: SpanGridRowSizeStrategy
+    
+    /// The amount of spacing added to the top and bottom of the scroll view
+    let verticalPadding: CGFloat
+    
+    /// Calculates the span index for each item in the grid.
+    /// The "span index" is the sum of the column spans of all items before it.
+    let spanIndexCalculator = SpanGridSpanIndexCalculator<Content, Data>()
+    
+    /// Stores information about whether keyboard navigation is enabled, where supported.
+    let keyboardNavigationOptions: SpanGridKeyboardNavigationOptions
+    
+    @ObservedObject var keyboardNavigationCoordinator = SpanGridKeyboardNavigation<Content, Data>()
+    @ObservedObject var rowHeightStorage: SpanGridRowHeightStorage
+    
+    let widthChangePublisher = SpanGridWidthListener.getPublisher()
     
     /*
      We use a publisher to detect a change in size category in order to reset the row height cache.
@@ -25,21 +53,9 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
      you introduce a race condition where sometimes the second update is not processed correctly and tiles have the
      incorrect size set.
      */
+    #if os(iOS)
     let sizeCategoryPublisher = NotificationCenter.default.publisher(for: UIContentSizeCategory.didChangeNotification)
-    let widthChangePublisher = SpanGridWidthListener.publisher
-    
-    let data: [SpanGridData<Data>]
-    let content: (Data, SpanGridCellMetadata) -> Content
-    
-    let columnSizeStrategy: SpanGridColumnSizeStrategy
-    let rowSizeStrategy: SpanGridRowSizeStrategy
-    
-    let verticalPadding: CGFloat
-    
-    let spanIndexCalculator = SpanGridSpanIndexCalculator<Content, Data>()
-    
-    let keyboardNavigationOptions: SpanGridKeyboardNavigationOptions
-    @ObservedObject var keyboardNavigationCoordinator = SpanGridKeyboardNavigation<Content, Data>()
+    #endif
     
     public init(
         dataSource: [Data],
@@ -57,71 +73,23 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
         
         self.columnSizeStrategy = columnSizeStrategy
         self.rowSizeStrategy = rowSizeStrategy
+        rowHeightStorage = .init(strategy: rowSizeStrategy)
         self.keyboardNavigationOptions = keyboardNavigationOptions
         self.verticalPadding = verticalPadding
         
         spanIndexCalculator.grid = self
-        rowHeightLookup.reserveCapacity(data.count)
+        rowHeightStorage.rowHeightLookup.reserveCapacity(data.count)
         
         if keyboardNavigationOptions.enabled {
             keyboardNavigationCoordinator.grid = self
         }
     }
     
-    func calculateCellPrefix(spanSize: Int, columnCount: Int, spanIndex: Int) -> Int {
-        if columnCount == 1 {
-            // Optimisation: There will never be empty cells in a list (single column grid).
-            return 0
-        }
-        
-        if spanSize == 1 {
-            // Optimisation: No point running the maths if the span is a single cell.
-            // It will never be prefixed by an empty cell.
-            return 0
-        }
-        
-        let spaceOnRow: Int = columnCount - (spanIndex % columnCount)
-        
-        if spanSize > spaceOnRow {
-            return spaceOnRow
-        }
-        
-        return 0
-    }
-    
-    func heightForRow(
-        columnSizeResult: SpanGridColumnSizeResult,
-        rowOffset: Int
-    ) -> CGFloat? {
-        switch rowSizeStrategy {
-        case .fixed(let height):
-            return height
-        case .largest where columnSizeResult.columnCount == 1:
-            // Optimisation: There is no value storing/retrieving row heights when there is nothing to align on
-            return nil
-        case .largest:
-            return rowHeightLookup[rowOffset]
-        case .square:
-            return columnSizeResult.tileWidth
-        case .none:
-            return nil
-        }
-    }
-    
     public var body: some View {
-        #if !targetEnvironment(macCatalyst) && DEBUG
-            if #available(iOS 15.0, *) {
-                Self._printChanges()
-            }
-        #endif
-        
-        return GeometryReader { proxy in
+        GeometryReader { proxy in
             let columnSizeResult = columnSizeStrategy.calculateResult(
                 width: proxy.size.width,
-                traits: .init(traitsFrom: [
-                    .init(preferredContentSizeCategory: sizeCategory.uiKit),
-                    .init(horizontalSizeClass: horizontalSizeClass == .regular ? .regular : .compact),
-                ])
+                traits: buildTraitCollection()
             )
             
             let columns: [GridItem] = .init(
@@ -148,15 +116,19 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
                 }
                 .padding(.vertical, verticalPadding)
             }
-            .onPreferenceChange(SpanGridRowPreferenceKey.self) { newValue in rowHeightLookup = newValue }
-            .onReceive(sizeCategoryPublisher) { _ in rowHeightLookup = [:] }
-            .onReceive(widthChangePublisher) { _ in rowHeightLookup = [:] }
+            .onPreferenceChange(SpanGridRowPreferenceKey.self, perform: rowHeightStorage.set)
+            .onReceive(widthChangePublisher) { _ in rowHeightStorage.clear() }
+            #if os(iOS)
+                .onReceive(sizeCategoryPublisher) { _ in rowHeightStorage.clear() }
+            #endif
             .overlay(SpanGridWidthListener(dynamicConfiguration: columnSizeStrategy.dynamicConfiguration)
                 .allowsHitTesting(false))
-            .overlay(SpanGridKeyboardNavigationShortcuts(
-                options: keyboardNavigationOptions,
-                callback: keyboardNavigationCoordinator.processDirection(columnSizeResult.columnCount)
-            ))
+            #if os(iOS) || os(macOS)
+                .overlay(SpanGridKeyboardNavigationShortcuts(
+                    options: keyboardNavigationOptions,
+                    callback: keyboardNavigationCoordinator.processDirection(columnSizeResult.columnCount)
+                ))
+            #endif
         }
     }
     
@@ -165,7 +137,7 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
         
         let spanSize = viewModel.data.layoutSize.spanSize(columnCount: columnCount)
         let spanIndex = spanIndexCalculator.getSpanIndex(forItemWithOffset: viewModel.cellIndex, columnCount: columnCount)
-        let prefixSpace = calculateCellPrefix(spanSize: spanSize, columnCount: columnCount, spanIndex: spanIndex)
+        let prefixSpace = spanIndexCalculator.calculateCellPrefix(spanSize: spanSize, columnCount: columnCount, spanIndex: spanIndex)
         SpanGridSpanView(
             layoutSize: viewModel.data.layoutSize,
             prefixSpace: prefixSpace,
@@ -176,7 +148,7 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
             let metadata = SpanGridCellMetadata(
                 size: .init(
                     width: width,
-                    height: heightForRow(
+                    height: rowHeightStorage.heightForRow(
                         columnSizeResult: columnSizeResult,
                         rowOffset: rowOffset
                     )
@@ -197,5 +169,24 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
                 view
             }
         }
+    }
+    
+    private func buildTraitCollection() -> SpanGridTraitCollection {
+        #if os(iOS)
+        SpanGridTraitCollection(
+            sizeCategory: sizeCategory,
+            horizontalSizeClass: horizontalSizeClass == .regular ? .regular : .compact
+        )
+        #elseif os(tvOS)
+        SpanGridTraitCollection(
+            sizeCategory: sizeCategory,
+            horizontalSizeClass: .regular
+        )
+        #else
+        SpanGridTraitCollection(
+            sizeCategory: nil,
+            horizontalSizeClass: .regular
+        )
+        #endif
     }
 }

@@ -1,0 +1,25 @@
+name: CI
+on: [push]
+env:
+  # https://github.com/actions/virtual-environments/blob/main/images/macos/macos-11-Readme.md
+  # Until October 18th (Currently October 10th), Xcode 12.5.1 is default.
+  DEVELOPER_DIR: /Applications/Xcode_13.0.app/Contents/Developer
+
+jobs:
+  test:
+    name: Test on iOS
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make ios
+
+  build:
+    name: Build on ${{ matrix.platform }}
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        platform: ["macos", "watchos", "tvos", "catalyst"]
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v2
+      - run: make ${{ matrix.platform }}
