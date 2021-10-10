@@ -123,7 +123,7 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
             #endif
             .overlay(SpanGridWidthListener(dynamicConfiguration: columnSizeStrategy.dynamicConfiguration)
                 .allowsHitTesting(false))
-            #if os(iOS)
+            #if os(iOS) || os(macOS)
                 .overlay(SpanGridKeyboardNavigationShortcuts(
                     options: keyboardNavigationOptions,
                     callback: keyboardNavigationCoordinator.processDirection(columnSizeResult.columnCount)
