@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "161E784B27124FBB0075E2DF"
-               BuildableName = "watchOS WatchKit App.app"
+               BuildableName = "SpanGrid (watchOS App).app"
                BlueprintName = "watchOS WatchKit App"
                ReferencedContainer = "container:SpanGridSample.xcodeproj">
             </BuildableReference>
@@ -61,7 +61,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "161E784B27124FBB0075E2DF"
-            BuildableName = "watchOS WatchKit App.app"
+            BuildableName = "SpanGrid (watchOS App).app"
             BlueprintName = "watchOS WatchKit App"
             ReferencedContainer = "container:SpanGridSample.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "161E784B27124FBB0075E2DF"
-            BuildableName = "watchOS WatchKit App.app"
+            BuildableName = "SpanGrid (watchOS App).app"
             BlueprintName = "watchOS WatchKit App"
             ReferencedContainer = "container:SpanGridSample.xcodeproj">
          </BuildableReference>
@@ -89,7 +89,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "161E784B27124FBB0075E2DF"
-            BuildableName = "watchOS WatchKit App.app"
+            BuildableName = "SpanGrid (watchOS App).app"
             BlueprintName = "watchOS WatchKit App"
             ReferencedContainer = "container:SpanGridSample.xcodeproj">
          </BuildableReference>

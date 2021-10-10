@@ -10,6 +10,7 @@ import SwiftUI
 import UIKit
 import XCTest
 
+@available(tvOS, unavailable)
 class SpanGridKeyboardNavigationTests: XCTestCase {
     func testInitialControls() {
         do { // On startup, currentItem is nil

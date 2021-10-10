@@ -10,6 +10,7 @@ import SwiftUI
 import UIKit
 import XCTest
 
+#if os(iOS)
 class SpanGridDynamicColumnSizeStrategyTests: XCTestCase {
     func testDynamicStrategy_snapshots() {
         // https://www.ios-resolution.com/
@@ -106,3 +107,4 @@ class SpanGridDynamicColumnSizeStrategyTests: XCTestCase {
         let layoutSize: SpanGridLayoutSize
     }
 }
+#endif
