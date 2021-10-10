@@ -1,5 +1,9 @@
 name: CI
 on: [push]
+env:
+  # https://github.com/actions/virtual-environments/blob/main/images/macos/macos-11-Readme.md
+  # Until October 18th (Currently October 10th), Xcode 12.5.1 is default.
+  DEVELOPER_DIR: /Applications/Xcode_13.0.app/Contents/Developer
 
 jobs:
   test:
