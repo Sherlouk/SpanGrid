@@ -57,6 +57,17 @@ public struct SpanGrid<Content: View, Data: Identifiable & SpanGridSizeInfoProvi
     let sizeCategoryPublisher = NotificationCenter.default.publisher(for: UIContentSizeCategory.didChangeNotification)
     #endif
     
+    /// Creates a new SpanGrid view with a fixed data source.
+    ///
+    /// - Parameters:
+    ///   - dataSource: An array of data which you want to display within the grid. Each item in the data array must be identifiable, and conform to
+    ///   `SpanGridSizeInfoProvider` which allows it to provide information on how to render itself.
+    ///   - columnSizeStrategy: Strategy which determines how to size each column of the grid.
+    ///   - rowSizeStrategy: Strategy which determines how to size each row of the grid.
+    ///   - keyboardNavigationOptions: Determines whether or not keyboard navigation should be supported for the grid. It is disabled by default.
+    ///   - verticalPadding: The amount of padding to be added to the top and bottom of the grid. Defaults to 0 (zero).
+    ///   - content: A block which allows you to provide, with an item of your dataSource and some SpanGrid provided metadata, a given cell. This is where
+    ///   you construct your own SwiftUI view and configure the view's data.
     public init(
         dataSource: [Data],
         columnSizeStrategy: SpanGridColumnSizeStrategy = .dynamicProvider(),

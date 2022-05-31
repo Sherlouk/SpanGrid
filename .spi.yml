@@ -3,3 +3,5 @@ builder:
   configs:
   - platform: watchos
     scheme: SpanGrid-watchOS
+  - platform: macos-spm
+    documentation_targets: [SpanGrid]

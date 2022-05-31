@@ -20,6 +20,24 @@ public struct SpanGridDynamicColumnSizeStrategy {
         let minimumGutterCompact: CGFloat
         let minimumGutterRegular: CGFloat
         
+        /// The configuration for the dynamic column size strategy. Determines exactly how the columns should be laid out.
+        ///
+        /// Parameter definitions reference "compact" and "regular" width classes. A compact width class is often a phone in portrait mode, but some larger
+        /// phones or phones in landscape may return a regular width class. Likewise, a tablet might return a compact width class when split screen or slide over
+        /// is being used.
+        ///
+        /// - Parameters:
+        ///   - maximumGridWidth: The maximum total width (in points) that the grid should consume.
+        ///   Consider larger tablets (iPad), widescreen displays (macOS) or televisions (tvOS). Default is 1160pt.
+        ///   - maximumGridWidthAccessibility: The maximum total width (in poitns) that the grid should consume when the user's device is using an
+        ///   accessible font size. Default is 840. This is often smaller than the maximum width for normal font, as the layout intentionally moves to a single
+        ///   column to allow for easier reading and to maximise the content which can be seen on one line.
+        ///   - minimumTileWidthCompact: The minimum width of a single tile for a compact width class.
+        ///   - minimumTileWidthRegular: The minimum width of a single tile for a regular width class.
+        ///   - interitemSpacingCompact: The amount of spacing between two tiles for a compact width class.
+        ///   - interitemSpacingRegular: The amount of spacing between two tiles for a regular width class.
+        ///   - minimumGutterCompact: The amount of space in the 'gutter' (to the left and right of the tiles) for a compact width class.
+        ///   - minimumGutterRegular: The amount of space in the 'gutter' (to the left and right of the tiles) for a regular width class.
         public init(
             maximumGridWidth: CGFloat = 1160,
             maximumGridWidthAccessibility: CGFloat = 840,
