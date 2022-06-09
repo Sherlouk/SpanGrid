@@ -3,21 +3,6 @@
 
 import PackageDescription
 
-var dependencies: [Package.Dependency] = [
-    .package(name: "SnapshotTesting",
-             url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.9.0"),
-    
-    .package(name: "swift-log",
-             url: "https://github.com/apple/swift-log.git", from: "1.4.2"),
-]
-
-#if swift(>=5.6)
-dependencies.append(contentsOf: [
-    .package(name: "swift-docc-plugin",
-             url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
-])
-#endif
-
 let package = Package(
     name: "SpanGrid",
     platforms: [
@@ -29,7 +14,13 @@ let package = Package(
     products: [
         .library(name: "SpanGrid", targets: ["SpanGrid"]),
     ],
-    dependencies: dependencies,
+    dependencies: [
+        .package(name: "SnapshotTesting",
+                 url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.9.0"),
+        
+        .package(name: "swift-log",
+                 url: "https://github.com/apple/swift-log.git", from: "1.4.2"),
+    ],
     targets: [
         .target(
             name: "SpanGrid",
